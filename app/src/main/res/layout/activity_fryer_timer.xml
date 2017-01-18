@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_height="fill_parent"
+android:layout_width="fill_parent"
+android:orientation="vertical"
+android:layout_weight="4.0"
+    >
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight=".75">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@color/colorDivider"
+        android:paddingRight="-5dp">
+
+        <TextView
+            android:id="@+id/Fryer1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Fryer 1"
+            android:textSize="50dp"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:layout_weight="1.2"
+            android:layout_margin="5dp"/>
+
+        <Button
+        android:padding="10dp"
+        android:id="@+id/fryer1A"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:textSize="50sp"
+        android:textColor="#000"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        />
+
+    <TextView
+        android:padding="10dp"
+        android:id="@+id/Fryer1B"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:text="B"
+        android:textSize="50sp"
+        android:textColor="#ffff"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp" />
+
+    <TextView
+        android:padding="10dp"
+        android:id="@+id/Fryer1C"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:text="C"
+        android:textSize="50sp"
+        android:textColor="#ffff"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp"
+        />
+
+        </LinearLayout>
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="7">
+
+        <Button
+            android:id="@+id/menuItems"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/menu_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Menu Item"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
