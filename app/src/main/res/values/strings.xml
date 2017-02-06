@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">FryerApp</string>
+
+    <string name="fryer_timer">Fryer Timer</string>
+
+    <!-- Category name for the vocabulary words for colors [CHAR LIMIT=20] -->
+    <string name="fryer_timer_settings">Fryer Timer Settings</string>
+
+    <!-- Category name for the vocabulary words for numbers [CHAR LIMIT=20] -->
+    <string name="menu_item_setings">Menu Item Settings</string>
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
