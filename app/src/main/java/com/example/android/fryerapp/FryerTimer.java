@@ -47,7 +47,7 @@ public class FryerTimer extends AppCompatActivity {
     private boolean timerCIsPaused = false;
 
     // These variables to help define actions for when the timer is finished
-    public boolean timerAIsFinished = false;
+    public boolean timerAIsFinished = true;
     public boolean timerBIsFinished = false;
     public boolean timerCIsFinished = false;
 
@@ -74,7 +74,8 @@ public class FryerTimer extends AppCompatActivity {
 
         @Override
         public void onFinish() {
-            zoneBText.setText("Time's up!");
+            zoneAText.setText("Time's up!");
+            fryer1ZoneAToOriginalValue();
         }
     };
 
@@ -151,6 +152,7 @@ public class FryerTimer extends AppCompatActivity {
                     menuItemIsSelected = false;
                     timerAIsRunning = true;
                     timerAIsPaused = false;
+                    timerAIsFinished = false;
                 }
                 else if (timerAIsRunning){
                     Log.i("11111111111", "test");
@@ -163,7 +165,26 @@ public class FryerTimer extends AppCompatActivity {
                     countDownTimerA.resume();
                     timerAIsRunning = true;
                     timerAIsPaused = false;
+
                 }
+                else if(timerAIsFinished) {
+                    Log.i("111111111113", "test");
+                    zoneAText.setText("Zone A");
+                }
+            }
+        });
+
+        zoneAText.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if (timerAIsRunning || timerAIsPaused) {
+                    countDownTimerA.cancel();
+                    zoneAText.setText("Zone A");
+                    timerAIsRunning = false;
+                    timerAIsPaused = false;
+                }
+                return true;
             }
         });
 
@@ -225,8 +246,6 @@ public class FryerTimer extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
 
@@ -235,7 +254,6 @@ public class FryerTimer extends AppCompatActivity {
     * */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-
         return true;
     }
 
@@ -269,6 +287,16 @@ public class FryerTimer extends AppCompatActivity {
                 TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliseconds)),
                 TimeUnit.MILLISECONDS.toSeconds(milliseconds) -
                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliseconds)));
+    }
+
+    /*
+    *
+    * Set the logic variable to the values in
+    * */
+    public void fryer1ZoneAToOriginalValue() {
+        timerAIsPaused = false;
+        timerAIsRunning = false;
+        timerAIsFinished = true;
     }
 }
 
