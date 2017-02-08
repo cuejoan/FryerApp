@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/whole_screen"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_weight="4.0"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:baselineAligned="false">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -15,8 +17,8 @@
             android:id="@+id/Fryer1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="5dp"
             android:layout_weight="1.5"
+            android:layout_margin="5dp"
             android:background="@color/colorDivider"
             android:gravity="center"
             android:text="Fryer 1"
@@ -69,7 +71,7 @@
             android:background="@drawable/menu_button"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Menu Item"
+            android:text="Chicken"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -137,7 +139,7 @@
             android:background="@drawable/menu_button"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Menu Item"
+            android:text="Cow"
             android:textSize="30sp" />
     </LinearLayout>
 

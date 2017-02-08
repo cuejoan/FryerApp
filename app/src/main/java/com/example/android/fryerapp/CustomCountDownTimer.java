@@ -50,12 +50,12 @@ public abstract class CustomCountDownTimer {
     /**
      * Millis since epoch when alarm should stop. 
      */
-    private final long mMillisInFuture;
+    private long mMillisInFuture;
 
     /**
      * The interval in millis that the user receives callbacks 
      */
-    private final long mCountdownInterval;
+    private long mCountdownInterval;
 
     private long mStopTimeInFuture;
 
@@ -66,13 +66,20 @@ public abstract class CustomCountDownTimer {
     private boolean mPaused = false;
 
     /**
-     * @param millisInFuture The number of millis in the future from the call 
-     *   to {@link #start()} until the countdown is done and {@link #onFinish()} 
-     *   is called. 
-     * @param countDownInterval The interval along the way to receive 
      *   {@link #onTick(long)} callbacks. 
      */
-    public CustomCountDownTimer(long millisInFuture, long countDownInterval) {
+    public CustomCountDownTimer() {
+    }
+
+
+    /*
+
+    * @param millisInFuture The number of millis in the future from the call
+    *   to {@link #start()} until the countdown is done and {@link #onFinish()}
+    *   is called.
+    * @param countDownInterval The interval along the way to receive
+    * */
+    public void setTime(long millisInFuture, long countDownInterval) {
         mMillisInFuture = millisInFuture;
         mCountdownInterval = countDownInterval;
     }

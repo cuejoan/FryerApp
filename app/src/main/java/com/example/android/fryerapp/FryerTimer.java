@@ -1,15 +1,16 @@
 package com.example.android.fryerapp;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +18,16 @@ import java.util.concurrent.TimeUnit;
 
 public class FryerTimer extends AppCompatActivity {
 
+    Context context = getBaseContext();
+
     //this variable is for a button that will hold the information for a menuitem that will be put in the frier
     // like french fries or fried chicken
-    public Button menuItem;
+    public Button mChickenButton;
+
+    //this variable is for a button that will hold the information for a menuitem that will be put in the frier
+    // like french fries or fried chicken
+    public Button mCowButton;
+
     //this is the where the text for the countdown timer is displayed for zone1A
 
     //this shows "Zone A" before the timer is started
@@ -57,14 +65,14 @@ public class FryerTimer extends AppCompatActivity {
     private boolean timerCIsRunning = false;
 
     //after a menu item is touched then we say that it is selected.  This variable will help us decided what to do when the menu item is selected
-    public boolean menuItemIsSelected = false;
+    private boolean menuItemIsSelected = false;
 
-
-
+    // This variable is use to store the value in milliseconds that the timer will be set
+    private int mTimerTime;
 
     // This is an Anonymous object, it means you instantiate the class inline, this way
     // you write less code and the code is more readable, you do the same crete an onClickListener
-    CustomCountDownTimer countDownTimerA = new CustomCountDownTimer(startTime, interval) {
+    CustomCountDownTimer countDownTimerA = new CustomCountDownTimer() {
         @Override
         public void onTick(long millisUntilFinished) {
             // Converts the millisecond to hh:mm:ss
@@ -79,7 +87,7 @@ public class FryerTimer extends AppCompatActivity {
         }
     };
 
-    CustomCountDownTimer countDownTimerB = new CustomCountDownTimer(startTime, interval) {
+    CustomCountDownTimer countDownTimerB = new CustomCountDownTimer() {
         @Override
         public void onTick(long millisUntilFinished) {
             // Converts the millisecond to hh:mm:ss
@@ -90,10 +98,11 @@ public class FryerTimer extends AppCompatActivity {
         @Override
         public void onFinish() {
             zoneBText.setText("Time's up!");
+            fryer1ZoneBToOriginalValue();
         }
     };
 
-    CustomCountDownTimer countDownTimerC = new CustomCountDownTimer(startTime, interval) {
+    CustomCountDownTimer countDownTimerC = new CustomCountDownTimer() {
         @Override
         public void onTick(long millisUntilFinished) {
             // Converts the millisecond to hh:mm:ss
@@ -104,6 +113,7 @@ public class FryerTimer extends AppCompatActivity {
         @Override
         public void onFinish() {
             zoneCText.setText("Time's up!");
+            fryer1ZoneCToOriginalValue();
         }
     };
 
@@ -118,22 +128,47 @@ public class FryerTimer extends AppCompatActivity {
         setContentView(R.layout.activity_fryer_timer);
 
         //set menu item to be selected
-        menuItem = (Button) findViewById(R.id.menuItems);
+        mChickenButton = (Button) findViewById(R.id.menuItems);
         //set code to select menu item and change background colors when selected
-        menuItem.setOnClickListener(new View.OnClickListener() {
+        mChickenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View button) {
 
                 if (!menuItemIsSelected) {
-                    menuItem.setBackgroundResource(R.drawable.pressed_menu_button);
+                    mChickenButton.setBackgroundResource(R.drawable.pressed_menu_button);
                     Toast.makeText(getApplicationContext(), "The Menu Was Selected",
                             Toast.LENGTH_LONG).show();
                     menuItemIsSelected = true;
+                    mTimerTime = 15000;
+
+                //Handle selected state change
+                } else {
+                    menuItemIsSelected = false;
+                    mChickenButton.setBackgroundResource(R.drawable.menu_button);
+                    Toast.makeText(getApplicationContext(), "The Menu Was DeSelected",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        //set menu item to be selected
+        mCowButton = (Button) findViewById(R.id.menuItems2);
+        //set code to select menu item and change background colors when selected
+        mCowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View button) {
+
+                if (!menuItemIsSelected) {
+                    mCowButton.setBackgroundResource(R.drawable.pressed_menu_button);
+                    Toast.makeText(getApplicationContext(), "The Menu Was Selected",
+                            Toast.LENGTH_LONG).show();
+                    menuItemIsSelected = true;
+                    mTimerTime = 20000;
 
                     //Handle selected state change
                 } else {
                     menuItemIsSelected = false;
-                    menuItem.setBackgroundResource(R.drawable.menu_button);
+                    mCowButton.setBackgroundResource(R.drawable.menu_button);
                     Toast.makeText(getApplicationContext(), "The Menu Was DeSelected",
                             Toast.LENGTH_LONG).show();
                 }
@@ -141,20 +176,23 @@ public class FryerTimer extends AppCompatActivity {
         });
 
 
+
+
         zoneAText = (TextView) findViewById(R.id.zoneA_text);
         zoneAText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (menuItemIsSelected) {
+                if (menuItemIsSelected && !timerAIsRunning) {
+                    countDownTimerA.setTime(mTimerTime, interval);
                     countDownTimerA.start();
-                    menuItem.setBackgroundResource(R.drawable.menu_button);
+                    setButtonsToDefaultColor();
                     menuItemIsSelected = false;
                     timerAIsRunning = true;
                     timerAIsPaused = false;
                     timerAIsFinished = false;
                 }
-                else if (timerAIsRunning){
+                else if (timerAIsRunning && !menuItemIsSelected){
                     Log.i("11111111111", "test");
                     countDownTimerA.pause();
                     timerAIsRunning = false;
@@ -165,15 +203,18 @@ public class FryerTimer extends AppCompatActivity {
                     countDownTimerA.resume();
                     timerAIsRunning = true;
                     timerAIsPaused = false;
-
                 }
                 else if(timerAIsFinished) {
                     Log.i("111111111113", "test");
                     zoneAText.setText("Zone A");
                 }
+                else if (menuItemIsSelected && timerAIsRunning){
+                    showDeleteConfirmationDialog(countDownTimerA);
+                    setButtonsToDefaultColor();
+                    menuItemIsSelected = false;
+                }
             }
         });
-
         zoneAText.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -181,8 +222,7 @@ public class FryerTimer extends AppCompatActivity {
                 if (timerAIsRunning || timerAIsPaused) {
                     countDownTimerA.cancel();
                     zoneAText.setText("Zone A");
-                    timerAIsRunning = false;
-                    timerAIsPaused = false;
+                    fryer1ZoneAToOriginalValue();
                 }
                 return true;
             }
@@ -196,25 +236,47 @@ public class FryerTimer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (menuItemIsSelected) {
+                if (menuItemIsSelected && !timerBIsRunning) {
+                    countDownTimerB.setTime(mTimerTime, interval);
                     countDownTimerB.start();
-                    menuItem.setBackgroundResource(R.drawable.menu_button);
+                    setButtonsToDefaultColor();
+                    mChickenButton.setBackgroundResource(R.drawable.menu_button);
                     menuItemIsSelected = false;
                     timerBIsRunning = true;
                     timerBIsPaused = false;
-                }
-                else if (timerBIsRunning){
+                } else if (timerBIsRunning && !menuItemIsSelected) {
                     Log.i("2222222221", "test");
                     countDownTimerB.pause();
                     timerBIsRunning = false;
                     timerBIsPaused = true;
-                }
-                else if(timerBIsPaused){
+                } else if (timerBIsPaused) {
                     Log.i("22222222222", "test");
                     countDownTimerB.resume();
                     timerBIsRunning = true;
                     timerBIsPaused = false;
                 }
+                else if (timerBIsFinished) {
+                    Log.i("22222222223", "test");
+                    zoneBText.setText("Zone B");
+                }
+                else if (menuItemIsSelected && timerBIsRunning){
+                    showDeleteConfirmationDialog(countDownTimerB);
+                    setButtonsToDefaultColor();
+                    menuItemIsSelected = false;
+                }
+            }
+            });
+        zoneBText.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if (timerBIsRunning || timerBIsPaused) {
+                    countDownTimerB.cancel();
+                    zoneBText.setText("Zone B");
+                    timerBIsRunning = false;
+                    timerBIsPaused = false;
+                }
+                return true;
             }
         });
 
@@ -225,14 +287,16 @@ public class FryerTimer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (menuItemIsSelected) {
+                if (menuItemIsSelected && !timerCIsRunning) {
+                    countDownTimerC.setTime(mTimerTime, interval);
                     countDownTimerC.start();
-                    menuItem.setBackgroundResource(R.drawable.menu_button);
+                    setButtonsToDefaultColor();
+                    mChickenButton.setBackgroundResource(R.drawable.menu_button);
                     menuItemIsSelected = false;
                     timerCIsRunning = true;
                     timerCIsPaused = false;
                 }
-                else if (timerCIsRunning){
+                else if (timerCIsRunning && !menuItemIsSelected){
                     Log.i("1333333331", "test");
                     countDownTimerC.pause();
                     timerCIsRunning = false;
@@ -244,9 +308,32 @@ public class FryerTimer extends AppCompatActivity {
                     timerCIsRunning = true;
                     timerCIsPaused = false;
                 }
+                else if(timerCIsFinished) {
+                    Log.i("111111111113", "test");
+                    zoneCText.setText("Zone C");
+                }
+                else if (menuItemIsSelected && timerCIsRunning){
+                    showDeleteConfirmationDialog(countDownTimerC);
+                    setButtonsToDefaultColor();
+                    menuItemIsSelected = false;
+                }
+            }
+        });
+        zoneCText.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if (timerCIsRunning || timerCIsPaused) {
+                    countDownTimerC.cancel();
+                    zoneCText.setText("Zone C");
+                    timerCIsRunning = false;
+                    timerCIsPaused = false;
+                }
+                return true;
             }
         });
     }
+
 
 
     /*
@@ -289,14 +376,70 @@ public class FryerTimer extends AppCompatActivity {
                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliseconds)));
     }
 
+
+
+
     /*
     *
-    * Set the logic variable to the values in
+    * Set the logic variables to the original values
     * */
     public void fryer1ZoneAToOriginalValue() {
         timerAIsPaused = false;
         timerAIsRunning = false;
         timerAIsFinished = true;
+    }
+
+    public void fryer1ZoneBToOriginalValue() {
+        timerBIsPaused = false;
+        timerBIsRunning = false;
+        timerBIsFinished = true;
+    }
+
+    public void fryer1ZoneCToOriginalValue() {
+        timerCIsPaused = false;
+        timerCIsRunning = false;
+        timerCIsFinished = true;
+    }
+
+
+
+
+    /*
+    *
+    * */
+    public void setButtonsToDefaultColor(){
+        mChickenButton.setBackgroundResource(R.drawable.menu_button);
+        mCowButton.setBackgroundResource(R.drawable.menu_button);
+    }
+
+
+    /**
+     * Prompt the user to confirm that they want to change the current cooking time.
+     */
+    private void showDeleteConfirmationDialog(final CustomCountDownTimer customCountDownTimer) {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to change the cooking time?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Yes" button, so change the current cooking time.
+                customCountDownTimer.start();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "No" button, so dismiss the dialog
+                // and continue.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
 
