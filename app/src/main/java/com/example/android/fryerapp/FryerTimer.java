@@ -28,15 +28,9 @@ public class FryerTimer extends AppCompatActivity {
     // like french fries or fried chicken
     public Button mCowButton;
 
-    //this is the where the text for the countdown timer is displayed for zone1A
-
-    //this shows "Zone A" before the timer is started
+    //this shows "Zone X" before the timer is started
     public TextView zoneAText;
-
-    // This view displays Zone B
     public TextView zoneBText;
-
-    // This view displays Zone C
     public TextView zoneCText;
 
     //this variable holds the start time for the timer
@@ -47,11 +41,7 @@ public class FryerTimer extends AppCompatActivity {
 
     //helps define actions in the "if" statement for when the timer is paused
     private boolean timerAIsPaused = false;
-
-    //helps define actions in the "if" statement for when the timer is paused
     private boolean timerBIsPaused = false;
-
-    //helps define actions in the "if" statement for when the timer is paused
     private boolean timerCIsPaused = false;
 
     // These variables to help define actions for when the timer is finished
