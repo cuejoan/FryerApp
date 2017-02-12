@@ -9,6 +9,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
+        android:id="@+id/fryer1_layout"
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -21,43 +22,43 @@
             android:layout_margin="5dp"
             android:background="@color/colorDivider"
             android:gravity="center"
-            android:text="Fryer 1"
+            android:text="@string/fryer_1"
             android:textColor="#fff"
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/zoneA_text"
+            android:id="@+id/text_fryer1_zoneA"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Zone A"
+            android:text="@string/zone_a"
             android:textColor="#fff"
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/zoneB_text"
+            android:id="@+id/text_fryer1_zoneB"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Zone B"
+            android:text="@string/zone_b"
             android:textColor="#fff"
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/zoneC_text"
+            android:id="@+id/text_fryer1_zoneC"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Zone C"
+            android:text="@string/zone_c"
             android:textColor="#fff"
             android:textSize="50sp" />
 
@@ -78,54 +79,55 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:id="@+id/fryer2_layout"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/Fryer2"
+            android:id="@+id/text_fryer2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:layout_weight="1.5"
             android:background="@color/colorDivider"
             android:gravity="center"
-            android:text="Fryer 2"
+            android:text="@string/fryer_2"
             android:textColor="#fff"
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/zoneA_text2"
+            android:id="@+id/text_fryer2_zoneA"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Zone A"
+            android:text="@string/zone_a"
             android:textColor="#fff"
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/zoneB_text2"
+            android:id="@+id/text_fryer2_zoneB"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Zone B"
+            android:text="@string/zone_b"
             android:textColor="#fff"
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/zoneC_text2"
+            android:id="@+id/text_fryer2_zoneC"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Zone C"
+            android:text="@string/zone_c"
             android:textColor="#fff"
             android:textSize="50sp" />
 
@@ -146,54 +148,56 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:id="@+id/fryer3_layout"
+
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/Fryer3"
+            android:id="@+id/text_fryer3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:layout_weight="1.5"
             android:background="@color/colorDivider"
             android:gravity="center"
-            android:text="Fryer 3"
+            android:text="@string/fryer_3"
             android:textColor="#fff"
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/zoneA_text3"
+            android:id="@+id/text_fryer3_zoneA"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Zone A"
+            android:text="@string/zone_a"
             android:textColor="#fff"
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/zoneB_text3"
+            android:id="@+id/text_fryer3_zoneB"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Zone B"
+            android:text="@string/zone_b"
             android:textColor="#fff"
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/zoneC_text3"
+            android:id="@+id/text_fryer3_zoneC"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Zone C"
+            android:text="@string/zone_c"
             android:textColor="#fff"
             android:textSize="50sp" />
 
@@ -207,7 +211,7 @@
             android:background="@drawable/menu_button"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Menu Item"
+            android:text="Fries"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -215,53 +219,55 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/fryer4_layout"
+        >
 
         <TextView
-            android:id="@+id/Fryer4"
+            android:id="@+id/text_fryer4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:layout_weight="1.5"
             android:background="@color/colorDivider"
             android:gravity="center"
-            android:text="Fryer 4"
+            android:text="@string/fryer_4"
             android:textColor="#fff"
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/zoneA_text4"
+            android:id="@+id/text_fryer4_zoneA"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Zone A"
+            android:text="@string/zone_a"
             android:textColor="#fff"
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/zoneB_text4"
+            android:id="@+id/text_fryer4_zoneB"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Zone C"
+            android:text="@string/zone_b"
             android:textColor="#fff"
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/zoneC_text4"
+            android:id="@+id/text_fryer4_zoneC"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Zone C"
+            android:text="@string/zone_c"
             android:textColor="#fff"
             android:textSize="50sp" />
 
@@ -275,11 +281,9 @@
             android:background="@drawable/menu_button"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Menu Item"
+            android:text="Fish"
             android:textSize="30sp" />
     </LinearLayout>
 
 
 </LinearLayout>
-
-

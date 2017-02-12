@@ -45,7 +45,7 @@ public class TimerFragmentPagerAdapter extends FragmentPagerAdapter{
             return mContext.getResources().getString(R.string.fryer_timer_settings);
 
         } else {
-            return mContext.getResources().getString(R.string.menu_item_setings);
+            return mContext.getResources().getString(R.string.menu_item_settings);
         }
     }
 
