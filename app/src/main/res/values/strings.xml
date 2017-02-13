@@ -22,4 +22,20 @@
     <string name="fryer_2">Fryer 2</string>
     <string name="fryer_3">Fryer 3</string>
     <string name="fryer_4">Fryer 4</string>
+
+    <string name="number_of_fryers_title">How many fryers would you like to use?</string>
+
+    <string name="number_of_fryers_key">num_fryers</string>
+
+    <string name="number_of_fryers_default_value">4</string>
+
+    <string name="one_fryer_label">One</string>
+    <string name="two_fryer_label">Two</string>
+    <string name="three_fryer_label">Three</string>
+    <string name="four_fryer_label">Four</string>
+
+    <string name="one_fryer_value">1</string>
+    <string name="two_fryer_value">2</string>
+    <string name="three_fryer_value">3</string>
+    <string name="four_fryer_value">4</string>
 </resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="number_of_fryers_labels">
+        <item>@string/one_fryer_label</item>
+        <item>@string/two_fryer_label</item>
+        <item>@string/three_fryer_label</item>
+        <item>@string/four_fryer_label</item>
+    </array>
+
+    <array name="number_of_fryers_values">
+        <item>@string/one_fryer_value</item>
+        <item>@string/two_fryer_value</item>
+        <item>@string/three_fryer_value</item>
+        <item>@string/four_fryer_value</item>
+    </array>
+
+</resources>

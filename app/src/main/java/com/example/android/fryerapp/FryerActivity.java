@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FryerTimer extends AppCompatActivity implements View.OnClickListener,
+public class FryerActivity extends AppCompatActivity implements View.OnClickListener,
         View.OnLongClickListener {
 
 
@@ -53,7 +55,14 @@ public class FryerTimer extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fryer_timer);
 
-        int numberOfFryer = 4;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String numOfFryer = sharedPreferences.getString(getString(R.string.number_of_fryers_key),
+                getString(R.string.number_of_fryers_default_value));
+
+
+
+
+        int numberOfFryer = Integer.parseInt(numOfFryer);
         if (numberOfFryer >= 1) {
 
             mFryer1 = new Fryer();
@@ -151,8 +160,8 @@ public class FryerTimer extends AppCompatActivity implements View.OnClickListene
 //                Toast.makeText(this, "You have selected Bookmark Menu", Toast.LENGTH_SHORT).show();
 //                // Create a new intent to open the {@link PhrasesActivity}
         int id = item.getItemId();
-        if (id == R.id.settiings_icon) {
-            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+        if (id == R.id.settings_icon) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

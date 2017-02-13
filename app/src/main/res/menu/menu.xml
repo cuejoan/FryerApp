@@ -4,7 +4,7 @@
 
     <item
         android:title=""
-        android:id="@+id/settiings_icon"
+        android:id="@+id/settings_icon"
         android:icon="@drawable/ic_settings_black_24dp"
         android:orderInCategory="100"
         app:showAsAction="always"/>
