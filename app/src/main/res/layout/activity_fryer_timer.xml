@@ -4,284 +4,350 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_weight="4.0"
-    android:orientation="horizontal"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:id="@+id/fryer1_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:baselineAligned="true">
+
+        <LinearLayout
+            android:id="@+id/fryer1_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Fryer1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1.5"
+                android:background="@color/colorDivider"
+                android:gravity="center"
+                android:text="@string/fryer_1"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/text_fryer1_zoneA"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/zone_a"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/text_fryer1_zoneB"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/zone_b"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/text_fryer1_zoneC"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/zone_c"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fryer2_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/text_fryer2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1.5"
+                android:background="@color/colorDivider"
+                android:gravity="center"
+                android:text="@string/fryer_2"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/text_fryer2_zoneA"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/zone_a"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/text_fryer2_zoneB"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/zone_b"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/text_fryer2_zoneC"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/zone_c"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fryer3_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/text_fryer3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1.5"
+                android:background="@color/colorDivider"
+                android:gravity="center"
+                android:text="@string/fryer_3"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/text_fryer3_zoneA"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/zone_a"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/text_fryer3_zoneB"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/zone_b"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/text_fryer3_zoneC"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/zone_c"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fryer4_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/text_fryer4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1.5"
+                android:background="@color/colorDivider"
+                android:gravity="center"
+                android:text="@string/fryer_4"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/text_fryer4_zoneA"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/zone_a"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/text_fryer4_zoneB"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/zone_b"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/text_fryer4_zoneC"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/zone_c"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/Fryer1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.5"
-            android:layout_margin="5dp"
-            android:background="@color/colorDivider"
-            android:gravity="center"
-            android:text="@string/fryer_1"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/text_fryer1_zoneA"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/zone_a"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/text_fryer1_zoneB"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/zone_b"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/text_fryer1_zoneC"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/zone_c"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/menuItems"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="3.5"
+            android:layout_weight="1"
             android:background="@drawable/menu_button"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="18dp"
+            android:text="Chicken"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/menuItems2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/menu_button"
+            android:gravity="center"
+            android:padding="18dp"
+            android:text="Chicken"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/menuItems3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/menu_button"
+            android:gravity="center"
+            android:padding="18dp"
+            android:text="Chicken"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/menuItems4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/menu_button"
+            android:gravity="center"
+            android:padding="18dp"
             android:text="Chicken"
             android:textSize="30sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/fryer2_layout"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/text_fryer2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1.5"
-            android:background="@color/colorDivider"
-            android:gravity="center"
-            android:text="@string/fryer_2"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/text_fryer2_zoneA"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/zone_a"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/text_fryer2_zoneB"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/zone_b"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/text_fryer2_zoneC"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/zone_c"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <Button
-            android:id="@+id/menuItems2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:id="@+id/menuItems5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="3.5"
+            android:layout_weight="1"
             android:background="@drawable/menu_button"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="Cow"
+            android:padding="18dp"
+            android:text="Chicken"
             android:textSize="30sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:id="@+id/fryer3_layout"
-
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/text_fryer3"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1.5"
-            android:background="@color/colorDivider"
-            android:gravity="center"
-            android:text="@string/fryer_3"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/text_fryer3_zoneA"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/zone_a"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/text_fryer3_zoneB"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/zone_b"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/text_fryer3_zoneC"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/zone_c"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
 
         <Button
-            android:id="@+id/menuItems3"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:id="@+id/menuItems6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="3.5"
+            android:layout_weight="1"
             android:background="@drawable/menu_button"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="Fries"
+            android:padding="18dp"
+            android:text="Chicken"
             android:textSize="30sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/fryer4_layout"
-        >
-
-        <TextView
-            android:id="@+id/text_fryer4"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1.5"
-            android:background="@color/colorDivider"
-            android:gravity="center"
-            android:text="@string/fryer_4"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/text_fryer4_zoneA"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/zone_a"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/text_fryer4_zoneB"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/zone_b"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/text_fryer4_zoneC"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/zone_c"
-            android:textColor="#fff"
-            android:textSize="50sp" />
-
 
         <Button
-            android:id="@+id/menuItems4"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:id="@+id/menuItems7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="3.5"
+            android:layout_weight="1"
             android:background="@drawable/menu_button"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="Fish"
+            android:padding="18dp"
+            android:text="Chicken"
+            android:textSize="30sp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/menu_button"
+            android:gravity="center"
+            android:padding="18dp"
+            android:text="Chicken"
             android:textSize="30sp" />
     </LinearLayout>
 

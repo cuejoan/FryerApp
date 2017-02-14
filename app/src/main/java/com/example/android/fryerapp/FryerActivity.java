@@ -12,11 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class FryerActivity extends AppCompatActivity implements View.OnClickListener,
-        View.OnLongClickListener {
+        View.OnLongClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
 
     //this variable divides the milliseconds
@@ -48,6 +49,14 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     private Fryer mFryer3;
     private Fryer mFryer4;
 
+    private SharedPreferences mSharedPreferences;
+
+
+    LinearLayout fryerLayout2;
+    LinearLayout fryerLayout3;
+    LinearLayout fryerLayout4;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +64,14 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fryer_timer);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String numOfFryer = sharedPreferences.getString(getString(R.string.number_of_fryers_key),
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String numOfFryer = mSharedPreferences.getString(getString(R.string.number_of_fryers_key),
                 getString(R.string.number_of_fryers_default_value));
+        mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
-
+        fryerLayout2 = (LinearLayout) findViewById(R.id.fryer2_layout);
+        fryerLayout3 = (LinearLayout) findViewById(R.id.fryer3_layout);
+        fryerLayout4 = (LinearLayout) findViewById(R.id.fryer4_layout);
 
 
         int numberOfFryer = Integer.parseInt(numOfFryer);
@@ -78,6 +90,12 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             TextView mFryer1ZoneCText = (TextView) findViewById(R.id.text_fryer1_zoneC);
             mFryer1ZoneCText.setOnClickListener(this);
             mFryer1ZoneCText.setOnLongClickListener(this);
+
+            if (numberOfFryer == 1) {
+                fryerLayout2.setVisibility(View.GONE);
+                fryerLayout3.setVisibility(View.GONE);
+                fryerLayout4.setVisibility(View.GONE);
+            }
         }
         if (numberOfFryer >= 2){
 
@@ -94,6 +112,11 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             TextView mFryer2ZoneCText = (TextView) findViewById(R.id.text_fryer2_zoneC);
             mFryer2ZoneCText.setOnClickListener(this);
             mFryer2ZoneCText.setOnLongClickListener(this);
+
+            if (numberOfFryer == 2) {
+                fryerLayout3.setVisibility(View.GONE);
+                fryerLayout4.setVisibility(View.GONE);
+            }
         }
         if (numberOfFryer >= 3) {
 
@@ -110,6 +133,10 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             TextView mFryer3ZoneCText = (TextView) findViewById(R.id.text_fryer3_zoneC);
             mFryer3ZoneCText.setOnClickListener(this);
             mFryer3ZoneCText.setOnLongClickListener(this);
+
+            if (numberOfFryer == 3) {
+                fryerLayout4.setVisibility(View.GONE);
+            }
         }
         if (numberOfFryer == 4){
 
@@ -142,10 +169,15 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         mFishButton.setOnClickListener(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+    }
 
     /*
-    *
-    * */
+        *
+        * */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
@@ -155,10 +187,6 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     *
     * */
     public boolean onOptionsItemSelected(MenuItem item) {
-        //switch (item.getItemId()) {
-//            case R.id.settings_icon:
-//                Toast.makeText(this, "You have selected Bookmark Menu", Toast.LENGTH_SHORT).show();
-//                // Create a new intent to open the {@link PhrasesActivity}
         int id = item.getItemId();
         if (id == R.id.settings_icon) {
             startActivity(new Intent(this, SettingsActivity.class));
@@ -251,6 +279,8 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             menuItemIsSelected = false;
         }
     }
+
+
 
 
     /*
@@ -393,6 +423,35 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+        String numOfFryer = mSharedPreferences.getString(getString(R.string.number_of_fryers_key),
+                getString(R.string.number_of_fryers_default_value));
+        int numberOfFryer = Integer.parseInt(numOfFryer);
+
+        if (numberOfFryer == 1) {
+            fryerLayout2.setVisibility(View.GONE);
+            fryerLayout3.setVisibility(View.GONE);
+            fryerLayout4.setVisibility(View.GONE);
+        }
+        if (numberOfFryer == 2) {
+            fryerLayout2.setVisibility(View.VISIBLE);
+            fryerLayout3.setVisibility(View.GONE);
+            fryerLayout4.setVisibility(View.GONE);
+        }
+        if (numberOfFryer == 3) {
+            fryerLayout2.setVisibility(View.VISIBLE);
+            fryerLayout3.setVisibility(View.VISIBLE);
+            fryerLayout4.setVisibility(View.GONE);
+        }
+        if (numberOfFryer == 4) {
+            fryerLayout2.setVisibility(View.VISIBLE);
+            fryerLayout3.setVisibility(View.VISIBLE);
+            fryerLayout4.setVisibility(View.VISIBLE);
+        }
     }
 }
 
