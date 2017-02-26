@@ -135,7 +135,7 @@
 
         <Button
             android:id="@+id/menuItem4"
-            style="@style/buttons_style"/>
+            style="@style/buttons_style" />
     </LinearLayout>
 
     <LinearLayout
@@ -160,6 +160,4 @@
             android:id="@+id/menuItem8"
             style="@style/buttons_style"/>
     </LinearLayout>
-
-
 </LinearLayout>

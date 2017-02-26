@@ -16,16 +16,33 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class FryerActivity extends AppCompatActivity implements View.OnClickListener,
         View.OnLongClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
+    private Context context = getBaseContext();
+
     //
-    public static final boolean BUTTONS_DEFAULT_VISIBILITY = true;
+    private static final boolean BUTTONS_DEFAULT_VISIBILITY = true;
+    private static final String BUTTONS_DEFAULT_TIME = "15";
+    public static final int ONE_MINUTE_IN_MILLISECONDS = 60000;
+
+
+    // I am hardcoding the string because if a get the values from resources the switch block show
+    // the error "Constants values required", I tried
+    //private final String BUTTON1_VISIBILITY_KEY= getString(R.string.number_of_fryers_default_value);
+
+
+
+
+
+
 
     //this variable divides the milliseconds
-    private final long interval = 1000;
+    private static final long interval = 1000;
 
-    Context context = getBaseContext();
+
     // After a menu item is touched then we say that it is selected.  This variable will help us decided what to do when the menu item is selected
     private boolean menuItemIsSelected = false;
 
@@ -567,28 +584,28 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case "button1_time":
-                mButtonTime[1] = Integer.parseInt(mSharedPreferences.getString("button1_time", "15")) * 60000;
+                mButtonTime[1] = getTime("button1_time");
                 break;
             case "button2_time":
-                mButtonTime[2] = Integer.parseInt(mSharedPreferences.getString("button2_time", "15")) * 60000;
+                mButtonTime[2] = getTime("button2_time");
                 break;
             case "button3_time":
-                mButtonTime[3] = Integer.parseInt(mSharedPreferences.getString("button3_time", "15")) * 60000;
+                mButtonTime[3] = getTime("button3_time");
                 break;
             case "button4_time":
-                mButtonTime[4] = Integer.parseInt(mSharedPreferences.getString("button4_time", "15")) * 60000;
+                mButtonTime[4] = getTime("button4_time");
                 break;
             case "button5_time":
-                mButtonTime[5] = Integer.parseInt(mSharedPreferences.getString("button5_time", "15")) * 60000;
+                mButtonTime[5] = getTime("button5_time");
                 break;
             case "button6_time":
-                mButtonTime[6] = Integer.parseInt(mSharedPreferences.getString("button6_time", "15")) * 60000;
+                mButtonTime[6] = getTime("button6_time");
                 break;
             case "button7_time":
-                mButtonTime[7] = Integer.parseInt(mSharedPreferences.getString("button7_time", "15")) * 60000;
+                mButtonTime[7] = getTime("button7_time");
                 break;
             case "button8_time":
-                mButtonTime[8] = Integer.parseInt(mSharedPreferences.getString("button8_time", "15")) * 60000;
+                mButtonTime[8] = getTime("button8_time");
                 break;
 
             case "num_fryers":
@@ -612,6 +629,12 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
 
+    }
+
+
+    private int getTime(String buttonTimeKey) {
+        return Integer.parseInt(mSharedPreferences.getString(buttonTimeKey, BUTTONS_DEFAULT_TIME))
+                * ONE_MINUTE_IN_MILLISECONDS;
     }
 }
 
