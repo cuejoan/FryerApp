@@ -16,10 +16,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+
 
 public class FryerActivity extends AppCompatActivity implements View.OnClickListener,
         View.OnLongClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private static final String TAG = SettingsActivity.class.getName();
+
+
+
 
     private Context context = getBaseContext();
 
@@ -32,10 +37,6 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     // I am hardcoding the string because if a get the values from resources the switch block show
     // the error "Constants values required", I tried
     //private final String BUTTON1_VISIBILITY_KEY= getString(R.string.number_of_fryers_default_value);
-
-
-
-
 
 
 
@@ -84,7 +85,6 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         //Set text View of fryerA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fryer_timer);
-
 
         mFryerLayout2 = (LinearLayout) findViewById(R.id.fryer2_layout);
         mFryerLayout3 = (LinearLayout) findViewById(R.id.fryer3_layout);
@@ -205,7 +205,6 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         mButton8 = (Button) findViewById(R.id.menuItem8);
         startButton(mButton8, "button8_visibility", BUTTONS_DEFAULT_VISIBILITY, "button8_text", "8", "button8_time");
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
