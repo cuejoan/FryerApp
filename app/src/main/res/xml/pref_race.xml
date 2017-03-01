@@ -75,5 +75,25 @@
                     android:title="Time" />
             </PreferenceCategory>
 
+            <PreferenceCategory
+                android:title="Menu Item 4">
+                <SwitchPreference
+                    android:defaultValue="true"
+                    android:key="button4_visibility"
+                    android:title="Visible" />
+
+                <EditTextPreference
+                    android:dependency="button4_visibility"
+                    android:defaultValue="4"
+                    android:key="button4_text"
+                    android:title="Name"/>
+
+                <EditTextPreference
+                    android:dependency="button4_visibility"
+                    android:defaultValue="15"
+                    android:key="button4_time"
+                    android:title="Time" />
+            </PreferenceCategory>
+
     </PreferenceScreen>
 </PreferenceScreen>

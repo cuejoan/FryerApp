@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
     <PreferenceScreen
         android:theme="@style/AppTheme.NoActionBar"
         android:title="Fryers">
@@ -12,6 +13,7 @@
             android:title="@string/number_of_fryers_title" />
 
     </PreferenceScreen>
+
     <PreferenceScreen
         android:title="Menu Items"
         android:theme="@style/AppTheme.NoActionBar">
@@ -81,6 +83,29 @@
                 android:key="button3_time"
                 android:title="Time" />
         </PreferenceScreen>
+
+        <PreferenceScreen
+            android:theme="@style/AppTheme.NoActionBar"
+            android:title="Menu Item 4">
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="button4_visibility"
+                android:title="Visible" />
+
+            <EditTextPreference
+                android:dependency="button4_visibility"
+                android:defaultValue="4"
+                android:key="button4_text"
+                android:title="Name" />
+
+            <EditTextPreference
+                android:dependency="button4_visibility"
+                android:defaultValue="15"
+                android:key="button4_time"
+                android:title="Time" />
+        </PreferenceScreen>
+
 
 
     </PreferenceScreen>

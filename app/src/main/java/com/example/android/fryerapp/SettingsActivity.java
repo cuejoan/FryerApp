@@ -1,12 +1,8 @@
 package com.example.android.fryerapp;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.preference.EditTextPreference;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
@@ -21,6 +17,7 @@ import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +27,6 @@ import android.widget.ListView;
 
 
 public class SettingsActivity extends PreferenceActivity {
-    private static String appVersion;
 
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -62,35 +58,31 @@ public class SettingsActivity extends PreferenceActivity {
             root.addView(bar);
         }
 
-        Toolbar Tbar = (Toolbar) bar.getChildAt(0);
+        Toolbar tBar = (Toolbar) bar.getChildAt(0);
 
-        Tbar.setTitle(getString(R.string.action_settings));
+        tBar.setTitle(getString(R.string.action_settings));
 
-        Tbar.setNavigationOnClickListener(new View.OnClickListener() {
+        tBar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
             }
         });
-
-        try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            appVersion = pInfo.versionName;
-        } catch(PackageManager.NameNotFoundException e) {
-            appVersion = "unknown";
-        }
 
         setupSimplePreferencesScreen();
     }
 
     @SuppressWarnings("deprecation")
     private void setupSimplePreferencesScreen() {
-        addPreferencesFromResource(R.xml.pref_general);
+        addPreferencesFromResource(R.xml.pref_race);
+        // ......... Shrink this .........
         bindPreferenceSummaryToValue(findPreference("button1_time"));
         bindPreferenceSummaryToValue(findPreference("button2_time"));
         bindPreferenceSummaryToValue(findPreference("button3_time"));
+        bindPreferenceSummaryToValue(findPreference("button4_time"));
         bindPreferenceSummaryToValue(findPreference("button1_text"));
         bindPreferenceSummaryToValue(findPreference("button2_text"));
         bindPreferenceSummaryToValue(findPreference("button3_text"));
+        bindPreferenceSummaryToValue(findPreference("button4_text"));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.number_of_fryers_key)));
     }
 
@@ -99,12 +91,12 @@ public class SettingsActivity extends PreferenceActivity {
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
 
-            if (preference instanceof EditTextPreference) {
-                setPreferenceSummary(preference, stringValue);
+            if (preference.getTitle().equals("Time")) {
+                Log.i("1111111112", "1111111");
+                return true;
+
             }
-            else if (preference instanceof ListPreference) {
-                setPreferenceSummary(preference, stringValue);
-            }
+            setPreferenceSummary(preference, stringValue);
 
             return true;
         }
@@ -119,12 +111,19 @@ public class SettingsActivity extends PreferenceActivity {
         sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), "15"));
+                        .getString(preference.getKey(), ""));
     }
 
     private static void setPreferenceSummary(Preference preference, String value) {
-        preference.getTitle();
-        preference.setTitle(preference.getTitle() + "           " + value);
+        String title = preference.getTitle().toString();
+        int sizeTittle = title.length();
+        // Get the first for characters, "Time" or "Name" and add the value, I did this to avoid
+        // making a custom preference to set the summary next to the title, if you don't do
+        // subString the title keeps growing.
+        if (title.equals("Time") || title.equals("Name")) {
+            preference.setTitle(title.substring(0, Math.min(sizeTittle, 4)) + "           " + value);
+        } else if (title.equals(preference.getContext().getString(R.string.number_of_fryers_title)))
+            preference.setTitle(title.substring(0, Math.min(sizeTittle, 38)) + "           " + value);
     }
 
     @Override
