@@ -7,15 +7,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -95,83 +92,63 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             mFryer1.zoneC.defaultTextZones = getString(R.string.zone_c);
 
             setUpTextView(mFryer1);
-
-
-            /*   TextView mFryer1ZoneAText = (TextView) findViewById(R.id.text_fryer1_zoneA);
-            mFryer1ZoneAText.setOnClickListener(this);
-            mFryer1ZoneAText.setOnLongClickListener(this);
-
-            TextView mFryer1ZoneBText = (TextView) findViewById(R.id.text_fryer1_zoneB);
-            mFryer1ZoneBText.setOnClickListener(this);
-            mFryer1ZoneBText.setOnLongClickListener(this);
-
-            TextView mFryer1ZoneCText = (TextView) findViewById(R.id.text_fryer1_zoneC);
-            mFryer1ZoneCText.setOnClickListener(this);
-            mFryer1ZoneCText.setOnLongClickListener(this);*/
-
-           /*
-            if (numberOfFryer == 1) {
-                mFryerLayout2.setVisibility(View.GONE);
-                mFryerLayout3.setVisibility(View.GONE);
-                mFryerLayout4.setVisibility(View.GONE);
-            }*/
         }
         if (numberOfFryer >= 2){
 
             mFryer2 = new Fryer();
 
-            TextView mFryer2ZoneAText = (TextView) findViewById(R.id.text_fryer2_zoneA);
-            mFryer2ZoneAText.setOnClickListener(this);
-            mFryer2ZoneAText.setOnLongClickListener(this);
+            mFryer2.zoneA.mZoneText = (TextView) findViewById(R.id.text_fryer2_zoneA);
+            mFryer2.zoneB.mZoneText = (TextView) findViewById(R.id.text_fryer2_zoneB);
+            mFryer2.zoneC.mZoneText = (TextView) findViewById(R.id.text_fryer2_zoneC);
 
-            TextView mFryer2ZoneBText = (TextView) findViewById(R.id.text_fryer2_zoneB);
-            mFryer2ZoneBText.setOnClickListener(this);
-            mFryer2ZoneBText.setOnLongClickListener(this);
+            mFryer2.zoneA.mSummaryText = (TextView) findViewById(R.id.summ_fryer2_zoneA);
+            mFryer2.zoneB.mSummaryText = (TextView) findViewById(R.id.summ_fryer2_zoneB);
+            mFryer2.zoneC.mSummaryText = (TextView) findViewById(R.id.summ_fryer2_zoneC);
 
-            TextView mFryer2ZoneCText = (TextView) findViewById(R.id.text_fryer2_zoneC);
-            mFryer2ZoneCText.setOnClickListener(this);
-            mFryer2ZoneCText.setOnLongClickListener(this);
+            mFryer2.zoneA.defaultTextZones = getString(R.string.zone_a);
+            mFryer2.zoneB.defaultTextZones = getString(R.string.zone_b);
+            mFryer2.zoneC.defaultTextZones = getString(R.string.zone_c);
 
-            if (numberOfFryer == 2) {
-                mFryerLayout3.setVisibility(View.GONE);
-                mFryerLayout4.setVisibility(View.GONE);
-            }
+            setUpTextView(mFryer2);
+            mFryerLayout2.setVisibility(View.VISIBLE);
         }
         if (numberOfFryer >= 3) {
 
             mFryer3 = new Fryer();
 
-            TextView mFryer3ZoneAText = (TextView) findViewById(R.id.text_fryer3_zoneA);
-            mFryer3ZoneAText.setOnClickListener(this);
-            mFryer3ZoneAText.setOnLongClickListener(this);
+            mFryer3.zoneA.mZoneText = (TextView) findViewById(R.id.text_fryer3_zoneA);
+            mFryer3.zoneB.mZoneText = (TextView) findViewById(R.id.text_fryer3_zoneB);
+            mFryer3.zoneC.mZoneText = (TextView) findViewById(R.id.text_fryer3_zoneC);
 
-            TextView mFryer3ZoneBText = (TextView) findViewById(R.id.text_fryer3_zoneB);
-            mFryer3ZoneBText.setOnClickListener(this);
-            mFryer3ZoneBText.setOnLongClickListener(this);
+            mFryer3.zoneA.mSummaryText = (TextView) findViewById(R.id.summ_fryer3_zoneA);
+            mFryer3.zoneB.mSummaryText = (TextView) findViewById(R.id.summ_fryer3_zoneB);
+            mFryer3.zoneC.mSummaryText = (TextView) findViewById(R.id.summ_fryer3_zoneC);
 
-            TextView mFryer3ZoneCText = (TextView) findViewById(R.id.text_fryer3_zoneC);
-            mFryer3ZoneCText.setOnClickListener(this);
-            mFryer3ZoneCText.setOnLongClickListener(this);
+            mFryer3.zoneA.defaultTextZones = getString(R.string.zone_a);
+            mFryer3.zoneB.defaultTextZones = getString(R.string.zone_b);
+            mFryer3.zoneC.defaultTextZones = getString(R.string.zone_c);
 
-            if (numberOfFryer == 3) {
-                mFryerLayout4.setVisibility(View.GONE);
-            }
+            setUpTextView(mFryer3);
+            mFryerLayout3.setVisibility(View.VISIBLE);
         }
         if (numberOfFryer == 4){
 
             mFryer4 = new Fryer();
 
-            TextView mFryer4ZoneAText = (TextView) findViewById(R.id.text_fryer4_zoneA);
-            mFryer4ZoneAText.setOnClickListener(this);
-            mFryer4ZoneAText.setOnLongClickListener(this);
+            mFryer4.zoneA.mZoneText = (TextView) findViewById(R.id.text_fryer4_zoneA);
+            mFryer4.zoneB.mZoneText = (TextView) findViewById(R.id.text_fryer4_zoneB);
+            mFryer4.zoneC.mZoneText = (TextView) findViewById(R.id.text_fryer4_zoneC);
 
-            TextView mFryer4ZoneBText = (TextView) findViewById(R.id.text_fryer4_zoneB);
-            mFryer4ZoneBText.setOnClickListener(this);
-            mFryer4ZoneBText.setOnLongClickListener(this);
+            mFryer4.zoneA.mSummaryText = (TextView) findViewById(R.id.summ_fryer4_zoneA);
+            mFryer4.zoneB.mSummaryText = (TextView) findViewById(R.id.summ_fryer4_zoneB);
+            mFryer4.zoneC.mSummaryText = (TextView) findViewById(R.id.summ_fryer4_zoneC);
 
-            TextView mFryer4ZoneCText = (TextView) findViewById(R.id.text_fryer4_zoneC);
-            mFryer4ZoneCText.setOnClickListener(this);
-            mFryer4ZoneCText.setOnLongClickListener(this);
+            mFryer4.zoneA.defaultTextZones = getString(R.string.zone_a);
+            mFryer4.zoneB.defaultTextZones = getString(R.string.zone_b);
+            mFryer4.zoneC.defaultTextZones = getString(R.string.zone_c);
+
+            setUpTextView(mFryer4);
+            mFryerLayout4.setVisibility(View.VISIBLE);
         }
 
 
@@ -182,7 +159,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
                     getString(R.string.button_text + i)));
         }*/
 
-        // TODO iterate id resources,
+        // TODO iterate id resources, and this to strings.xml
         mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem1),
                 "button1_visibility", "button1_time", "button1_text"));
         mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem2),
@@ -206,14 +183,21 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-
     /*
     *
-    * Sets all cooking buttons to the original color
     * */
-    public void setButtonToDefaultColor(ButtonValue buttonValue) {
-        buttonValue.getButton().setBackgroundResource(R.drawable.menu_button);
+    private void setUpTextView(Fryer fryer){
+
+        fryer.zoneA.mZoneText.setOnClickListener(this);
+        fryer.zoneB.mZoneText.setOnClickListener(this);
+        fryer.zoneC.mZoneText.setOnClickListener(this);
+
+        fryer.zoneA.mZoneText.setOnLongClickListener(this);
+        fryer.zoneB.mZoneText.setOnLongClickListener(this);
+        fryer.zoneC.mZoneText.setOnLongClickListener(this);
     }
+
+
 
     /*
     * Manage all the logic, to pause, resume, stop, what to show in the TextView that was click.
@@ -221,73 +205,51 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     * @ zone is the Zone object with the logic boolean variable, mIsPaused, mIsRunning and mIsStop.
     * @ view is the TextView that was being click and will be modified.
     * */
-    private void timerAndTextViewLogic(Fryer.Zone zone, View view, String text) {
-        // Converting, narrowing or casting a View into a TextView
-        TextView textView = (TextView) view;
+    private void timerLogic(Fryer.Zone zone) {
 
         // todo Improve this
         int index = indexButtonClicked();
 
-
-
         if (index != NO_BUTTON_IS_SELECTED) {
-            Log.i("aaaaaaaa", "aaaaaaaa");
 
             ButtonValue buttonValue = mButtonValues.get(index);
             // if buttonLogic selected and mTimer not running, start mTimer when click
             if (!zone.mIsRunning && !zone.mIsPaused) {
-                Log.i("cccccccc", "ccccccccc");
-                zone.mTimer.setTimeAndStart(buttonValue.getTime(), INTERVAL, textView);
+                zone.mTimer.setTimeAndStart(buttonValue.getTime(), INTERVAL, zone.mZoneText);
+                zone.mSummaryText.setText(buttonValue.getText());
+                zone.mSummaryText.setVisibility(View.VISIBLE);
+
                 buttonValue.saveSelected(false);
                 zone.setVariablesToRunningMode();
+                resetButton(buttonValue);
 
-                setButtonToDefaultColor(buttonValue);
-
-            }// If running and the user try to change the time, throw a dialog to asking
-            // "Are you sure ...."
-            else {
-
+                // If running and the user try to change the time, throw a dialog to asking
+                // "Are you sure ...."
+            } else {
                 // Throws a dialog, if confirm
-                confirmationDialogAndStartTimer(zone.mTimer, buttonValue, textView);
+                confirmationDialogAndStartTimer(zone.mTimer, buttonValue, zone.mSummaryText);
                 buttonValue.saveSelected(false);
-
-                setButtonToDefaultColor(buttonValue);
+                resetButton(buttonValue);
             }
 
-        // If menuItemIsSelected is not selected, proceed
+            // If menuItemIsSelected is not selected, proceed
         } else  {
             // If running and a not buttonLogic selected, pause when click.
-           if (zone.mIsRunning) {
+            if (zone.mIsRunning) {
                 zone.mTimer.pause();
                 zone.setVariablesToPausedMode();
 
-           // if paused and not buttonLogic selected, resume when click
-           } else if (zone.mIsPaused) {
+                // if paused and not buttonLogic selected, resume when click
+            } else if (zone.mIsPaused) {
                 zone.mTimer.resume();
                 zone.setVariablesToRunningMode();
 
-           } else if (zone.mIsStop) {
-               Log.i("dddddddd", "dddddddddd");
-               textView.setText(text);
-           }
+            } else if (zone.mIsStop) {
+                zone.mZoneText.setText(zone.defaultTextZones);
+                zone.mSummaryText.setVisibility(View.GONE);
+            }
         }
     }
-
-
-    /*
-    *
-    * */
-    private void resetCounterAndVariables(Fryer.Zone zone, View v, int stringId) {
-        // Converting, narrowing or casting a View into a TextView
-        TextView textView = (TextView) v;
-
-        if (zone.mIsRunning || zone.mIsPaused) {
-            zone.mTimer.cancel();
-            textView.setText(stringId);
-            zone.setVariablesToStopMode();
-        }
-    }
-
 
     /*
     *
@@ -301,13 +263,11 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             ButtonValue previousClicked = mButtonValues.get(index);
             // If the button in state clicked before is the same as the new one clicked, proceed.
             if (previousClicked == buttonValue) {
-                previousClicked.saveSelected(false);
-                setButtonToDefaultColor(previousClicked);
+                resetButton(previousClicked);
 
             // If the user clicked a another different button, proceed.
             } else  {
-                previousClicked.saveSelected(false);
-                setButtonToDefaultColor(previousClicked);
+                resetButton(previousClicked);
                 buttonValue.getButton().setBackgroundResource(R.drawable.pressed_menu_button);
                 buttonValue.saveSelected(true);
             }
@@ -343,14 +303,23 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         // Store the true or false the visibility of the button.
         buttonValue.saveVisibility(mSharedPreferences.getBoolean(buttonValue.getVisibilityKey(),
                 BUTTONS_DEFAULT_VISIBILITY));
+        buttonValue.saveText(mSharedPreferences.getString(buttonValue.getTextKey(),
+                ""));
+
         // If the buttonValue.mVisible is true, proceed.
         if (buttonValue.isVisible()) {
             // Get the button and make it visible in the layout.
-            buttonValue.getButton().setVisibility(View.VISIBLE);
+            Button button = buttonValue.getButton();
+            button.setVisibility(View.VISIBLE);
+            button.setText(buttonValue.getText());
             return true;
         }else {
             // Get the button and make it gone in the layout.
             buttonValue.getButton().setVisibility(View.GONE);
+            // Without this line if you would click a button, hide it, and show it, it would
+            // appear in Selected state, this is very unlikely to happen, but it's a logic bug.
+            resetButton(buttonValue);
+
             return false;
         }
     }
@@ -375,7 +344,6 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
                 * ONE_MINUTE_IN_MILLISECONDS;
     }
 
-
     /*
     *
     *  Returns the index of the button the was clicked or NO_BUTTON_IS_SELECTED.
@@ -387,6 +355,30 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             }
         }
         return NO_BUTTON_IS_SELECTED;
+    }
+
+    /*
+    *
+    * */
+    private void resetCounterAndVariables(Fryer.Zone zone) {
+
+        if (zone.mIsRunning || zone.mIsPaused) {
+            zone.mTimer.cancel();
+            zone.mZoneText.setText(zone.defaultTextZones);
+            zone.mSummaryText.setVisibility(View.GONE);
+
+            zone.setVariablesToStopMode();
+        }
+    }
+
+
+    /*
+    *
+    * Sets all cooking buttons to the original color
+    * */
+    public void resetButton(ButtonValue buttonValue) {
+        buttonValue.saveSelected(false);
+        buttonValue.getButton().setBackgroundResource(R.drawable.menu_button);
     }
 
     /**
@@ -428,6 +420,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
 
+        // Todo check if can do some improvement here
         int i = view.getId();
         if (i == R.id.menuItem1) {
             buttonLogic(mButtonValues.get(0));
@@ -453,88 +446,84 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         } else if (i == R.id.menuItem8) {
             buttonLogic(mButtonValues.get(7));
 
-        } else if (i == mFryer1.zoneA.mZoneText.getId()) {
-            timerAndTextViewLogic(mFryer1.zoneA);
 
-        } else if (i == mFryer1.zoneB.mZoneText.getId()) {
-            timerAndTextViewLogic(mFryer1.zoneB);
+        // Todo find out if would be convenient to iterate here
+        } else if (view == mFryer1.zoneA.mZoneText) {
+            timerLogic(mFryer1.zoneA);
 
-        } else if (i == mFryer1.zoneC.mZoneText.getId()) {
-            timerAndTextViewLogic(mFryer1.zoneC);
+        } else if (view == mFryer1.zoneB.mZoneText) {
+            timerLogic(mFryer1.zoneB);
 
-        } else if (i == R.id.text_fryer2_zoneA) {
-            timerAndTextViewLogic(mFryer2.zoneA, view, getString(R.string.zone_a));
+        } else if (view == mFryer1.zoneC.mZoneText) {
+            timerLogic(mFryer1.zoneC);
 
-        } else if (i == R.id.text_fryer2_zoneB) {
-            timerAndTextViewLogic(mFryer2.zoneB, view, getString(R.string.zone_b));
+        } else if (view == mFryer2.zoneA.mZoneText) {
+            timerLogic(mFryer2.zoneA);
 
-        } else if (i == R.id.text_fryer2_zoneC) {
-            timerAndTextViewLogic(mFryer2.zoneC, view, getString(R.string.zone_c));
+        } else if (view == mFryer2.zoneB.mZoneText) {
+            timerLogic(mFryer2.zoneB);
 
-        } else if (i == R.id.text_fryer3_zoneA) {
-            timerAndTextViewLogic(mFryer3.zoneA, view, getString(R.string.zone_a));
+        } else if (view == mFryer2.zoneC.mZoneText) {
+            timerLogic(mFryer2.zoneC);
 
-        } else if (i == R.id.text_fryer3_zoneB) {
-            timerAndTextViewLogic(mFryer3.zoneB, view, getString(R.string.zone_b));
+        } else if (view == mFryer3.zoneA.mZoneText) {
+            timerLogic(mFryer3.zoneA);
 
-        } else if (i == R.id.text_fryer3_zoneC) {
-            timerAndTextViewLogic(mFryer3.zoneC, view, getString(R.string.zone_c));
+        } else if (view == mFryer3.zoneB.mZoneText) {
+            timerLogic(mFryer3.zoneB);
 
-        } else if (i == R.id.text_fryer4_zoneA) {
-            timerAndTextViewLogic(mFryer4.zoneA, view, getString(R.string.zone_a));
+        } else if (view == mFryer3.zoneC.mZoneText) {
+            timerLogic(mFryer3.zoneC);
 
-        } else if (i == R.id.text_fryer4_zoneB) {
-            timerAndTextViewLogic(mFryer4.zoneB, view, getString(R.string.zone_b));
+        } else if (view == mFryer4.zoneA.mZoneText) {
+            timerLogic(mFryer4.zoneA);
 
-        } else if (i == R.id.text_fryer4_zoneC) {
-            timerAndTextViewLogic(mFryer4.zoneC, view, getString(R.string.zone_c));
+        } else if (view == mFryer4.zoneB.mZoneText) {
+            timerLogic(mFryer4.zoneB);
 
-        } else {
+        } else if (view == mFryer4.zoneC.mZoneText) {
+            timerLogic(mFryer4.zoneC);
         }
     }
 
     @Override
     public boolean onLongClick(View view) {
 
-        switch (view.getId()) {
-            case R.id.text_fryer1_zoneA:
-                resetCounterAndVariables(mFryer1.zoneA, view, R.id.summ_fryer1_zoneA, R.string.zone_a);
-                break;
-            case R.id.text_fryer1_zoneB:
-                resetCounterAndVariables(mFryer1.zoneB, view, R.id.summ_fryer1_zoneB, R.string.zone_b);
-                break;
-            case R.id.text_fryer1_zoneC:
-                resetCounterAndVariables(mFryer1.zoneC, view, R.string.zone_c);
-                break;
-            case R.id.text_fryer2_zoneA:
-                resetCounterAndVariables(mFryer2.zoneA, view, R.string.zone_a);
-                break;
-            case R.id.text_fryer2_zoneB:
-                resetCounterAndVariables(mFryer2.zoneB, view, R.string.zone_b);
-                break;
-            case R.id.text_fryer2_zoneC:
-                resetCounterAndVariables(mFryer2.zoneC, view, R.string.zone_c);
-                break;
-            case R.id.text_fryer3_zoneA:
-                resetCounterAndVariables(mFryer3.zoneA, view, R.string.zone_a);
-                break;
-            case R.id.text_fryer3_zoneB:
-                resetCounterAndVariables(mFryer3.zoneB, view, R.string.zone_b);
-                break;
-            case R.id.text_fryer3_zoneC:
-                resetCounterAndVariables(mFryer3.zoneC, view, R.string.zone_c);
-                break;
-            case R.id.text_fryer4_zoneA:
-                resetCounterAndVariables(mFryer4.zoneA, view, R.string.zone_a);
-                break;
-            case R.id.text_fryer4_zoneB:
-                resetCounterAndVariables(mFryer4.zoneB, view, R.string.zone_b);
-                break;
-            case R.id.text_fryer4_zoneC:
-                resetCounterAndVariables(mFryer4.zoneC, view, R.string.zone_c);
-                break;
-            default:
-                break;
+        if (view == mFryer1.zoneA.mZoneText) {
+            resetCounterAndVariables(mFryer1.zoneA);
+
+        } else if (view == mFryer1.zoneB.mZoneText) {
+            resetCounterAndVariables(mFryer1.zoneB);
+
+        } else if (view == mFryer1.zoneC.mZoneText) {
+            resetCounterAndVariables(mFryer1.zoneC);
+
+        } else if (view == mFryer2.zoneA.mZoneText) {
+            resetCounterAndVariables(mFryer2.zoneA);
+
+        } else if (view == mFryer2.zoneB.mZoneText) {
+            resetCounterAndVariables(mFryer2.zoneB);
+
+        } else if (view == mFryer2.zoneC.mZoneText) {
+            resetCounterAndVariables(mFryer2.zoneC);
+
+        } else if (view == mFryer3.zoneA.mZoneText) {
+            resetCounterAndVariables(mFryer3.zoneA);
+
+        } else if (view == mFryer3.zoneB.mZoneText) {
+            resetCounterAndVariables(mFryer3.zoneB);
+
+        } else if (view == mFryer3.zoneC.mZoneText) {
+            resetCounterAndVariables(mFryer3.zoneC);
+
+        } else if (view == mFryer4.zoneA.mZoneText) {
+            resetCounterAndVariables(mFryer4.zoneA);
+
+        } else if (view == mFryer4.zoneB.mZoneText) {
+            resetCounterAndVariables(mFryer4.zoneB);
+
+        } else if (view == mFryer4.zoneC.mZoneText) {
+            resetCounterAndVariables(mFryer4.zoneC);
         }
         return true;
     }
@@ -630,7 +619,8 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             mButtonValues.get(7).saveTime(getTime(mButtonValues.get(7)));
 
 
-        //
+        // Todo if you set a timer, hide the same fryer and show it again, you would see the
+        // timer still running, very unlikely to happen, but still a bug.
         } else if (key.equals("num_fryers")) {
             if (numberOfFryer == 1) {
                 mFryerLayout2.setVisibility(View.GONE);
@@ -649,9 +639,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
                 mFryerLayout3.setVisibility(View.VISIBLE);
                 mFryerLayout4.setVisibility(View.VISIBLE);
             }
-
         }
-
     }
 
     /*
@@ -681,91 +669,6 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-
-    private void timerAndTextViewLogic(Fryer.Zone zone) {
-
-        // todo Improve this
-        int index = indexButtonClicked();
-
-        if (index != NO_BUTTON_IS_SELECTED) {
-            Log.i("aaaaaaaa", "aaaaaaaa");
-
-            ButtonValue buttonValue = mButtonValues.get(index);
-            // if buttonLogic selected and mTimer not running, start mTimer when click
-            if (!zone.mIsRunning && !zone.mIsPaused) {
-                zone.mTimer.setTimeAndStart(buttonValue.getTime(), INTERVAL, zone.mZoneText);
-                zone.mSummaryText.setText(buttonValue.getText());
-                zone.mSummaryText.setVisibility(View.VISIBLE);
-
-
-                buttonValue.saveSelected(false);
-                zone.setVariablesToRunningMode();
-
-                setButtonToDefaultColor(buttonValue);
-
-            }// If running and the user try to change the time, throw a dialog to asking
-            // "Are you sure ...."
-            else {
-                // Throws a dialog, if confirm
-                confirmationDialogAndStartTimer(zone.mTimer, buttonValue, zone.mSummaryText);
-                buttonValue.saveSelected(false);
-
-                setButtonToDefaultColor(buttonValue);
-            }
-
-            // If menuItemIsSelected is not selected, proceed
-        } else  {
-            // If running and a not buttonLogic selected, pause when click.
-            if (zone.mIsRunning) {
-                zone.mTimer.pause();
-                zone.setVariablesToPausedMode();
-
-                // if paused and not buttonLogic selected, resume when click
-            } else if (zone.mIsPaused) {
-                zone.mTimer.resume();
-                zone.setVariablesToRunningMode();
-
-            } else if (zone.mIsStop) {
-                Log.i("dddddddd", "dddddddddd");
-                zone.mZoneText.setText(zone.defaultTextZones);
-                zone.mSummaryText.setVisibility(View.GONE);
-            }
-        }
-    }
-
-
-    /*
-    *
-    * */
-    private void resetCounterAndVariables(Fryer.Zone zone, View v, int resourceId, int stringId) {
-        // Converting, narrowing or casting a View into a TextView
-        TextView zoneText = (TextView) v;
-        TextView summaryView = (TextView) findViewById(resourceId);
-
-
-        if (zone.mIsRunning || zone.mIsPaused) {
-            zone.mTimer.cancel();
-            zoneText.setText(stringId);
-            summaryView.setVisibility(View.GONE);
-
-            zone.setVariablesToStopMode();
-        }
-    }
-
-    private void setUpTextView(Fryer fryer){
-
-
-
-        fryer.zoneA.mZoneText.setOnClickListener(this);
-        fryer.zoneB.mZoneText.setOnClickListener(this);
-        fryer.zoneC.mZoneText.setOnClickListener(this);
-
-        fryer.zoneA.mZoneText.setOnLongClickListener(this);
-        fryer.zoneB.mZoneText.setOnLongClickListener(this);
-        fryer.zoneC.mZoneText.setOnLongClickListener(this);
     }
 }
 

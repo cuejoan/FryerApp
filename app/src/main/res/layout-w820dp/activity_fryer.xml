@@ -243,15 +243,15 @@ visibility to Visible -->
             style="@style/buttons_style" />
 
         <Button
-            android:id="@+id/menuItem2"
+            android:id="@+id/menuItem3"
             style="@style/buttons_style"/>
 
         <Button
-            android:id="@+id/menuItem3"
+            android:id="@+id/menuItem5"
             style="@style/buttons_style" />
 
         <Button
-            android:id="@+id/menuItem4"
+            android:id="@+id/menuItem7"
             style="@style/buttons_style" />
     </LinearLayout>
 
@@ -264,15 +264,15 @@ visibility to Visible -->
 
         <Button
             android:layout_marginLeft="30dp"
-            android:id="@+id/menuItem5"
+            android:id="@+id/menuItem2"
+            style="@style/buttons_style"/>
+
+        <Button
+            android:id="@+id/menuItem4"
             style="@style/buttons_style"/>
 
         <Button
             android:id="@+id/menuItem6"
-            style="@style/buttons_style"/>
-
-        <Button
-            android:id="@+id/menuItem7"
             style="@style/buttons_style"/>
 
         <Button
