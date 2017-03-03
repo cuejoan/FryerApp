@@ -9,7 +9,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".FryerActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,12 +23,12 @@
             android:theme="@style/AppTheme.SettingsTheme"
             android:name=".SettingsActivity"
             android:label="Settings"
-            android:parentActivityName=".FryerActivity">
+            android:parentActivityName=".FryerActivity"
+            android:screenOrientation="landscape">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FryerActivity" />
         </activity>
     </application>
-
 </manifest>

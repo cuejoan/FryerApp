@@ -5,7 +5,7 @@
     <item
         android:title=""
         android:id="@+id/settings_icon"
-        android:icon="@drawable/ic_settings_black_24dp"
+        android:icon="@drawable/ic_settings"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 </menu>

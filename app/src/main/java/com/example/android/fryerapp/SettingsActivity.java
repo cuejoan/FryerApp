@@ -75,14 +75,23 @@ public class SettingsActivity extends PreferenceActivity {
     private void setupSimplePreferencesScreen() {
         addPreferencesFromResource(R.xml.pref_race);
         // ......... Shrink this .........
+        // Todo iterate here
         bindPreferenceSummaryToValue(findPreference("button1_time"));
         bindPreferenceSummaryToValue(findPreference("button2_time"));
         bindPreferenceSummaryToValue(findPreference("button3_time"));
         bindPreferenceSummaryToValue(findPreference("button4_time"));
+        bindPreferenceSummaryToValue(findPreference("button5_time"));
+        bindPreferenceSummaryToValue(findPreference("button6_time"));
+        bindPreferenceSummaryToValue(findPreference("button7_time"));
+        bindPreferenceSummaryToValue(findPreference("button8_time"));
         bindPreferenceSummaryToValue(findPreference("button1_text"));
         bindPreferenceSummaryToValue(findPreference("button2_text"));
         bindPreferenceSummaryToValue(findPreference("button3_text"));
         bindPreferenceSummaryToValue(findPreference("button4_text"));
+        bindPreferenceSummaryToValue(findPreference("button5_text"));
+        bindPreferenceSummaryToValue(findPreference("button6_text"));
+        bindPreferenceSummaryToValue(findPreference("button7_text"));
+        bindPreferenceSummaryToValue(findPreference("button8_text"));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.number_of_fryers_key)));
     }
 
@@ -91,11 +100,12 @@ public class SettingsActivity extends PreferenceActivity {
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
 
-            if (preference.getTitle().equals("Time")) {
+            // Todo check if the time doesn't have a letter
+           /* if (preference.getTitle().equals("Time")) {
                 Log.i("1111111112", "1111111");
                 return true;
 
-            }
+            }*/
             setPreferenceSummary(preference, stringValue);
 
             return true;
@@ -120,10 +130,14 @@ public class SettingsActivity extends PreferenceActivity {
         // Get the first for characters, "Time" or "Name" and add the value, I did this to avoid
         // making a custom preference to set the summary next to the title, if you don't do
         // subString the title keeps growing.
-        if (title.equals("Time") || title.equals("Name")) {
-            preference.setTitle(title.substring(0, Math.min(sizeTittle, 4)) + "           " + value);
-        } else if (title.equals(preference.getContext().getString(R.string.number_of_fryers_title)))
-            preference.setTitle(title.substring(0, Math.min(sizeTittle, 38)) + "           " + value);
+        if (title.contains("Time")) {
+            preference.setTitle(title.substring(0, Math.min(sizeTittle, 4)) + "                " + value);
+
+        } else if (title.contains("Name")) {
+            preference.setTitle(title.substring(0, Math.min(sizeTittle, 4)) + "               " + value);
+
+        } else if (title.contains(preference.getContext().getString(R.string.number_of_fryers_title)))
+            preference.setTitle(title.substring(0, Math.min(sizeTittle, 38)) + "             " + value);
     }
 
     @Override

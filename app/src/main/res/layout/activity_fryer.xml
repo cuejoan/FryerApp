@@ -24,17 +24,17 @@
 
             <TextView
                 android:id="@+id/text_fryer1_zoneA"
-                style="@style/counter_text_views_style"
+                style="@style/linear_text_views_style"
                 android:text="@string/zone_a" />
 
             <TextView
                 android:id="@+id/text_fryer1_zoneB"
-                style="@style/counter_text_views_style"
+                style="@style/linear_text_views_style"
                 android:text="@string/zone_b" />
 
             <TextView
                 android:id="@+id/text_fryer1_zoneC"
-                style="@style/counter_text_views_style"
+                style="@style/linear_text_views_style"
                 android:text="@string/zone_c" />
         </LinearLayout>
 
@@ -49,17 +49,17 @@
 
             <TextView
                 android:id="@+id/text_fryer2_zoneA"
-                style="@style/counter_text_views_style"
+                style="@style/linear_text_views_style"
                 android:text="@string/zone_a" />
 
             <TextView
                 android:id="@+id/text_fryer2_zoneB"
-                style="@style/counter_text_views_style"
+                style="@style/linear_text_views_style"
                 android:text="@string/zone_b" />
 
             <TextView
                 android:id="@+id/text_fryer2_zoneC"
-                style="@style/counter_text_views_style"
+                style="@style/linear_text_views_style"
                 android:text="@string/zone_c" />
         </LinearLayout>
 
@@ -74,17 +74,17 @@
 
             <TextView
                 android:id="@+id/text_fryer3_zoneA"
-                style="@style/counter_text_views_style"
+                style="@style/linear_text_views_style"
                 android:text="@string/zone_a" />
 
             <TextView
                 android:id="@+id/text_fryer3_zoneB"
-                style="@style/counter_text_views_style"
+                style="@style/linear_text_views_style"
                 android:text="@string/zone_b" />
 
             <TextView
                 android:id="@+id/text_fryer3_zoneC"
-                style="@style/counter_text_views_style"
+                style="@style/linear_text_views_style"
                 android:text="@string/zone_c" />
         </LinearLayout>
 
@@ -99,29 +99,35 @@
 
             <TextView
                 android:id="@+id/text_fryer4_zoneA"
-                style="@style/counter_text_views_style"
+                style="@style/linear_text_views_style"
                 android:text="@string/zone_a"/>
 
             <TextView
                 android:id="@+id/text_fryer4_zoneB"
-                style="@style/counter_text_views_style"
+                style="@style/linear_text_views_style"
                 android:text="@string/zone_b" />
 
             <TextView
                 android:id="@+id/text_fryer4_zoneC"
-                style="@style/counter_text_views_style"
+                style="@style/linear_text_views_style"
                 android:text="@string/zone_c"/>
         </LinearLayout>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"/>
+
     <LinearLayout
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.3"
         android:orientation="horizontal"
         android:visibility="visible">
 
         <Button
+            android:layout_marginLeft="30dp"
             android:id="@+id/menuItem1"
             style="@style/buttons_style" />
 
@@ -139,12 +145,15 @@
     </LinearLayout>
 
     <LinearLayout
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1.3"
         android:orientation="horizontal"
         android:visibility="visible">
 
         <Button
+            android:layout_marginLeft="30dp"
             android:id="@+id/menuItem5"
             style="@style/buttons_style"/>
 

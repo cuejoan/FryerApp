@@ -1,5 +1,6 @@
 package com.example.android.fryerapp;
 
+import android.content.Context;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -16,6 +17,7 @@ class Fryer {
     Zone zoneC;
 
     Fryer() {
+
         zoneA = new Zone();
         zoneB = new Zone();
         zoneC = new Zone();
@@ -25,6 +27,11 @@ class Fryer {
         boolean mIsPaused;
         boolean mIsRunning;
         boolean mIsStop;
+
+        TextView mZoneText;
+        TextView mSummaryText;
+
+        String defaultTextZones;
 
         CustomCountDownTimer mTimer;
 

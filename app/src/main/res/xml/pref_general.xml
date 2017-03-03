@@ -2,7 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceScreen
-        android:theme="@style/AppTheme.NoActionBar"
         android:title="Fryers">
 
         <ListPreference
@@ -15,11 +14,9 @@
     </PreferenceScreen>
 
     <PreferenceScreen
-        android:title="Menu Items"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:title="Menu Items">
 
         <PreferenceScreen
-            android:theme="@style/AppTheme.NoActionBar"
             android:title="Menu Item 1">
 
                 <SwitchPreference
@@ -41,7 +38,6 @@
         </PreferenceScreen>
 
         <PreferenceScreen
-            android:theme="@style/AppTheme.NoActionBar"
             android:title="Menu Item 2">
 
             <SwitchPreference
@@ -63,7 +59,6 @@
         </PreferenceScreen>
 
         <PreferenceScreen
-            android:theme="@style/AppTheme.NoActionBar"
             android:title="Menu Item 3">
 
             <SwitchPreference
@@ -85,7 +80,6 @@
         </PreferenceScreen>
 
         <PreferenceScreen
-            android:theme="@style/AppTheme.NoActionBar"
             android:title="Menu Item 4">
 
             <SwitchPreference
