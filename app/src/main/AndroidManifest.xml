@@ -19,6 +19,8 @@
         </activity>
 
         <!-- A child of the main activity -->
+
+        <!-- A child of the main activity -->
         <activity
             android:theme="@style/AppTheme.SettingsTheme"
             android:name=".SettingsActivity"

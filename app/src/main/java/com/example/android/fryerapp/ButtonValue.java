@@ -16,18 +16,18 @@ class ButtonValue {
     private int mTime;
     private String mTimeKey;
     
-    private String mText;
-    private String mTextKey;
+    private String mName;
+    private String mNameKey;
 
     private boolean mIsSelected = false;
 
 
     ButtonValue(Button button, String buttonVisibilityKey, String buttonTimeKey,
-                       String buttonTextKey) {
+                       String buttonNameKey) {
         mButton = button;
         mVisibilityKey = buttonVisibilityKey;
         mTimeKey = buttonTimeKey;
-        mTextKey = buttonTextKey;
+        mNameKey = buttonNameKey;
     }
 
     // Getter methods
@@ -45,8 +45,8 @@ class ButtonValue {
         return mTimeKey;
     }
 
-    String getTextKey() {
-        return mTextKey;
+    String getNameKey() {
+        return mNameKey;
     }
 
     /*
@@ -67,7 +67,7 @@ class ButtonValue {
     *
     * */
     String getText() {
-        return mText;
+        return mName;
     }
 
     /*
@@ -100,7 +100,7 @@ class ButtonValue {
     *
     * */
     void saveName(String name) {
-        mText = name;
+        mName = name;
     }
 
     /*
@@ -120,12 +120,7 @@ class ButtonValue {
         mIsSelected = buttonIsSelected;
     }
 
-    /*
-    *
-    * */
-    void saveText(String text) {
-        mText = text;
-    }
+
 
 
 }

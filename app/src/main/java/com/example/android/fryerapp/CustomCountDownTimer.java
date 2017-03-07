@@ -11,9 +11,9 @@ import android.widget.TextView;
  */
 
 abstract class CustomCountDownTimer {  /**
- * Millis since epoch when alarm should stop.
- */
-private long mMillisInFuture;
+     * Millis since epoch when alarm should stop.
+     */
+    private long mMillisInFuture;
 
     /**
      * The interval in millis that the user receives callbacks

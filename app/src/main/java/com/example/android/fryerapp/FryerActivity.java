@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,11 +21,12 @@ import java.util.ArrayList;
 public class FryerActivity extends AppCompatActivity implements View.OnClickListener,
         View.OnLongClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private static final String TAG = SettingsActivity.class.getName();
+    private static final String TAG = FryerActivity.class.getName();
     //this variable divides the milliseconds
     private static final long INTERVAL = 1000;
     private static final boolean BUTTONS_DEFAULT_VISIBILITY = true;
     private static final String BUTTONS_DEFAULT_TIME = "15";
+    private static final String BUTTONS_DEFAULT_NAME = "Chicken";
     private static final int ONE_MINUTE_IN_MILLISECONDS = 60000;
     private static final int NO_BUTTON_IS_SELECTED = 100;
 
@@ -41,9 +43,8 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     private Fryer mFryer3;
     private Fryer mFryer4;
 
-    private SharedPreferences mSharedPreferences;
+    private SharedPreferences mPrefs;
 
-    private LinearLayout mFryerLayout1;
     private LinearLayout mFryerLayout2;
     private LinearLayout mFryerLayout3;
     private LinearLayout mFryerLayout4;
@@ -64,38 +65,38 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
 
 
         // Create a sharedPreference object and register a ChangeListener
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mPrefs.registerOnSharedPreferenceChangeListener(this);
 
 
-        // numOfFryer is meant to store the number of fryers
-        String numOfFryer = mSharedPreferences.getString(getString(R.string.number_of_fryers_key),
-                getString(R.string.number_of_fryers_default_value));
+        boolean fryer1 = mPrefs.getBoolean("fryer1_visibility", BUTTONS_DEFAULT_VISIBILITY);
 
         // todo is it worth no to create the textViews won't be used here?
         // todo Improve this
-        int numberOfFryer = Integer.parseInt(numOfFryer);
-        if (numberOfFryer >= 1) {
+        if (fryer1) {
 
-            mFryer1 = new Fryer();
+            mFryer1 = new Fryer(this);
 
             mFryer1.zoneA.mZoneText = (TextView) findViewById(R.id.text_fryer1_zoneA);
-            mFryer1.zoneB.mZoneText = (TextView) findViewById(R.id.text_fryer1_zoneB);
-            mFryer1.zoneC.mZoneText = (TextView) findViewById(R.id.text_fryer1_zoneC);
-
             mFryer1.zoneA.mSummaryText = (TextView) findViewById(R.id.summ_fryer1_zoneA);
+            // getString(R.string.zone_X); is added to the mFryer1.zoneX to link it to the Zone
+            // and easily use the value depending on the mFryer1.zoneX
+            mFryer1.zoneA.mDefaultTextZone = getString(R.string.zone_a);
+
+            mFryer1.zoneB.mZoneText = (TextView) findViewById(R.id.text_fryer1_zoneB);
             mFryer1.zoneB.mSummaryText = (TextView) findViewById(R.id.summ_fryer1_zoneB);
+            mFryer1.zoneB.mDefaultTextZone = getString(R.string.zone_b);
+
+            mFryer1.zoneC.mZoneText = (TextView) findViewById(R.id.text_fryer1_zoneC);
             mFryer1.zoneC.mSummaryText = (TextView) findViewById(R.id.summ_fryer1_zoneC);
+            mFryer1.zoneC.mDefaultTextZone = getString(R.string.zone_c);
 
-            mFryer1.zoneA.defaultTextZones = getString(R.string.zone_a);
-            mFryer1.zoneB.defaultTextZones = getString(R.string.zone_b);
-            mFryer1.zoneC.defaultTextZones = getString(R.string.zone_c);
-
-            setUpTextView(mFryer1);
+            setListenersToTextViews(mFryer1);
+            manageZonesVisibility(mFryer1, getString(R.string.number_of_zones_fryer1_key));
         }
-        if (numberOfFryer >= 2){
+        if (fryer1){
 
-            mFryer2 = new Fryer();
+            mFryer2 = new Fryer(this);
 
             mFryer2.zoneA.mZoneText = (TextView) findViewById(R.id.text_fryer2_zoneA);
             mFryer2.zoneB.mZoneText = (TextView) findViewById(R.id.text_fryer2_zoneB);
@@ -105,16 +106,12 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             mFryer2.zoneB.mSummaryText = (TextView) findViewById(R.id.summ_fryer2_zoneB);
             mFryer2.zoneC.mSummaryText = (TextView) findViewById(R.id.summ_fryer2_zoneC);
 
-            mFryer2.zoneA.defaultTextZones = getString(R.string.zone_a);
-            mFryer2.zoneB.defaultTextZones = getString(R.string.zone_b);
-            mFryer2.zoneC.defaultTextZones = getString(R.string.zone_c);
-
-            setUpTextView(mFryer2);
-            mFryerLayout2.setVisibility(View.VISIBLE);
+            setListenersToTextViews(mFryer2);
+            manageZonesVisibility(mFryer2, getString(R.string.number_of_zones_fryer2_key));
         }
-        if (numberOfFryer >= 3) {
+        if (fryer1) {
 
-            mFryer3 = new Fryer();
+            mFryer3 = new Fryer(this);
 
             mFryer3.zoneA.mZoneText = (TextView) findViewById(R.id.text_fryer3_zoneA);
             mFryer3.zoneB.mZoneText = (TextView) findViewById(R.id.text_fryer3_zoneB);
@@ -124,16 +121,12 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             mFryer3.zoneB.mSummaryText = (TextView) findViewById(R.id.summ_fryer3_zoneB);
             mFryer3.zoneC.mSummaryText = (TextView) findViewById(R.id.summ_fryer3_zoneC);
 
-            mFryer3.zoneA.defaultTextZones = getString(R.string.zone_a);
-            mFryer3.zoneB.defaultTextZones = getString(R.string.zone_b);
-            mFryer3.zoneC.defaultTextZones = getString(R.string.zone_c);
-
-            setUpTextView(mFryer3);
-            mFryerLayout3.setVisibility(View.VISIBLE);
+            setListenersToTextViews(mFryer3);
+            manageZonesVisibility(mFryer3, getString(R.string.number_of_zones_fryer3_key));
         }
-        if (numberOfFryer == 4){
+        if (fryer1){
 
-            mFryer4 = new Fryer();
+            mFryer4 = new Fryer(this);
 
             mFryer4.zoneA.mZoneText = (TextView) findViewById(R.id.text_fryer4_zoneA);
             mFryer4.zoneB.mZoneText = (TextView) findViewById(R.id.text_fryer4_zoneB);
@@ -143,23 +136,20 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             mFryer4.zoneB.mSummaryText = (TextView) findViewById(R.id.summ_fryer4_zoneB);
             mFryer4.zoneC.mSummaryText = (TextView) findViewById(R.id.summ_fryer4_zoneC);
 
-            mFryer4.zoneA.defaultTextZones = getString(R.string.zone_a);
-            mFryer4.zoneB.defaultTextZones = getString(R.string.zone_b);
-            mFryer4.zoneC.defaultTextZones = getString(R.string.zone_c);
-
-            setUpTextView(mFryer4);
-            mFryerLayout4.setVisibility(View.VISIBLE);
+            setListenersToTextViews(mFryer4);
+            manageZonesVisibility(mFryer4, getString(R.string.number_of_zones_fryer4_key));
         }
+        // Set visibilities to Fryer's Layouts depending on the pref's values.
+        manageLinearLayoutsVisibility();
 
 
-/*        int maxNumButtons = 8;
+        // TODO iterate id resources, and this to strings.xml
+        /*        int maxNumButtons = 8;
         for (int i = 0; i < maxNumButtons; i++) {
             mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem1),
                     getString(R.string.button_visibility) + i, getString(R.string.button_time) + i,
                     getString(R.string.button_text + i)));
         }*/
-
-        // TODO iterate id resources, and this to strings.xml
         mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem1),
                 "button1_visibility", "button1_time", "button1_text"));
         mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem2),
@@ -179,14 +169,14 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
 
         // Starts all buttons in ,ButtonValues
         for(int i =0; i < mButtonValues.size(); i++){
-            startButton(mButtonValues.get(i));
+            manageButtonVisibility(mButtonValues.get(i));
         }
     }
 
     /*
     *
     * */
-    private void setUpTextView(Fryer fryer){
+    private void setListenersToTextViews(Fryer fryer){
 
         fryer.zoneA.mZoneText.setOnClickListener(this);
         fryer.zoneB.mZoneText.setOnClickListener(this);
@@ -245,7 +235,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
                 zone.setVariablesToRunningMode();
 
             } else if (zone.mIsStop) {
-                zone.mZoneText.setText(zone.defaultTextZones);
+                zone.mZoneText.setText(zone.mDefaultTextZone);
                 zone.mSummaryText.setVisibility(View.GONE);
             }
         }
@@ -279,68 +269,57 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    /*
-    *
-    *
-    * */
-    private void startButton(ButtonValue buttonValue){
-        // Store the visibility of the button and make it visible or gone.
-        manageButtonVisibility(buttonValue);
-        if (buttonValue.isVisible()) {
-            buttonValue.saveTime(getTime(buttonValue));
-            setAndSaveButtonText(buttonValue);
-            buttonValue.getButton().setOnClickListener(this);
-        }
-    }
-
 
     /*
     *
     * Make the button visible and gone in the layout
+    * It is called when the app is launched and each time a button's preference is changed, to
+    * set OnClickListener, text and visibility.
     * */
-    // TODO check if I need to return value, if not change to void
-    private boolean manageButtonVisibility(ButtonValue buttonValue) {
+    // todo should I called al this function or separately
+    private void manageButtonVisibility(ButtonValue buttonValue) {
         // Store the true or false the visibility of the button.
-        buttonValue.saveVisibility(mSharedPreferences.getBoolean(buttonValue.getVisibilityKey(),
+        buttonValue.saveVisibility(mPrefs.getBoolean(buttonValue.getVisibilityKey(),
                 BUTTONS_DEFAULT_VISIBILITY));
-        buttonValue.saveText(mSharedPreferences.getString(buttonValue.getTextKey(),
-                ""));
 
         // If the buttonValue.mVisible is true, proceed.
         if (buttonValue.isVisible()) {
             // Get the button and make it visible in the layout.
             Button button = buttonValue.getButton();
             button.setVisibility(View.VISIBLE);
-            button.setText(buttonValue.getText());
-            return true;
+            //
+            buttonValue.saveTime(getTime(buttonValue));
+            //
+            setAndSaveButtonName(buttonValue);
+            button.setOnClickListener(this);
         }else {
             // Get the button and make it gone in the layout.
             buttonValue.getButton().setVisibility(View.GONE);
             // Without this line if you would click a button, hide it, and show it, it would
             // appear in Selected state, this is very unlikely to happen, but it's a logic bug.
             resetButton(buttonValue);
-
-            return false;
         }
     }
 
     /*
     *
+    *  It is called when the button's name is change, when the visibility is changed and when the
+    *  app is lunch, both last through manageButtonVisibility
     * */
-    private void setAndSaveButtonText(ButtonValue buttonValue) {
+    private void setAndSaveButtonName(ButtonValue buttonValue) {
         // Get the current text of the button.
-        String buttonText = mSharedPreferences.getString(buttonValue.getTextKey(), "");
+        String buttonText = mPrefs.getString(buttonValue.getNameKey(), BUTTONS_DEFAULT_NAME);
 
         // Set the text to the Button view
         buttonValue.getButton().setText(buttonText);
-        buttonValue.saveText(buttonText);
+        buttonValue.saveName(buttonText);
     }
 
     /*
     *
     * */
     private int getTime(ButtonValue buttonValue) {
-        return Integer.parseInt(mSharedPreferences.getString(buttonValue.getTimeKey(), BUTTONS_DEFAULT_TIME))
+        return Integer.parseInt(mPrefs.getString(buttonValue.getTimeKey(), BUTTONS_DEFAULT_TIME))
                 * ONE_MINUTE_IN_MILLISECONDS;
     }
 
@@ -364,7 +343,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
 
         if (zone.mIsRunning || zone.mIsPaused) {
             zone.mTimer.cancel();
-            zone.mZoneText.setText(zone.defaultTextZones);
+            zone.mZoneText.setText(zone.mDefaultTextZone);
             zone.mSummaryText.setVisibility(View.GONE);
 
             zone.setVariablesToStopMode();
@@ -532,13 +511,11 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     *
     *  It listens for changes in all the Preferences objects
     * */
+    // todo decide is change it for Preferece.OnChangeListener
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-
-        String numOfFryer = mSharedPreferences.getString(getString(R.string.number_of_fryers_key),
-                getString(R.string.number_of_fryers_default_value));
-        int numberOfFryer = Integer.parseInt(numOfFryer);
+        Log.i(TAG, "shared");
 
         // If any of the SwitchPreferences are switch, check the new visibility of the button and
         // make visible or gone in activity_fryer.xml
@@ -567,33 +544,33 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             manageButtonVisibility(mButtonValues.get(7));
 
 
-        // If any of the EditTextPreferences are modified, set the new text to the appropriate button
-        } else if (key.equals(mButtonValues.get(0).getTextKey())) {
-            setAndSaveButtonText(mButtonValues.get(0));
+        // If any Name EditTextPreferences is modified, set the new text to the appropriate button.
+        } else if (key.equals(mButtonValues.get(0).getNameKey())) {
+            setAndSaveButtonName(mButtonValues.get(0));
 
-        } else if (key.equals(mButtonValues.get(1).getTextKey())) {
-            setAndSaveButtonText(mButtonValues.get(1));
+        } else if (key.equals(mButtonValues.get(1).getNameKey())) {
+            setAndSaveButtonName(mButtonValues.get(1));
 
-        } else if (key.equals(mButtonValues.get(2).getTextKey())) {
-            setAndSaveButtonText(mButtonValues.get(2));
+        } else if (key.equals(mButtonValues.get(2).getNameKey())) {
+            setAndSaveButtonName(mButtonValues.get(2));
 
-        } else if (key.equals(mButtonValues.get(3).getTextKey())) {
-            setAndSaveButtonText(mButtonValues.get(3));
+        } else if (key.equals(mButtonValues.get(3).getNameKey())) {
+            setAndSaveButtonName(mButtonValues.get(3));
 
-        } else if (key.equals(mButtonValues.get(4).getTextKey())) {
-            setAndSaveButtonText(mButtonValues.get(4));
+        } else if (key.equals(mButtonValues.get(4).getNameKey())) {
+            setAndSaveButtonName(mButtonValues.get(4));
 
-        } else if (key.equals(mButtonValues.get(5).getTextKey())) {
-            setAndSaveButtonText(mButtonValues.get(5));
+        } else if (key.equals(mButtonValues.get(5).getNameKey())) {
+            setAndSaveButtonName(mButtonValues.get(5));
 
-        } else if (key.equals(mButtonValues.get(6).getTextKey())) {
-            setAndSaveButtonText(mButtonValues.get(6));
+        } else if (key.equals(mButtonValues.get(6).getNameKey())) {
+            setAndSaveButtonName(mButtonValues.get(6));
 
-        } else if (key.equals(mButtonValues.get(7).getTextKey())) {
-            setAndSaveButtonText(mButtonValues.get(7));
+        } else if (key.equals(mButtonValues.get(7).getNameKey())) {
+            setAndSaveButtonName(mButtonValues.get(7));
 
 
-        //
+        // If any Time EditTextPreferences is modified, set the new text to the appropriate button.
         } else if (key.equals(mButtonValues.get(0).getTimeKey())) {
             mButtonValues.get(0).saveTime(getTime(mButtonValues.get(0)));
 
@@ -621,24 +598,95 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
 
         // Todo if you set a timer, hide the same fryer and show it again, you would see the
         // timer still running, very unlikely to happen, but still a bug.
-        } else if (key.equals("num_fryers")) {
-            if (numberOfFryer == 1) {
-                mFryerLayout2.setVisibility(View.GONE);
-                mFryerLayout3.setVisibility(View.GONE);
-                mFryerLayout4.setVisibility(View.GONE);
-            } else if (numberOfFryer == 2) {
-                mFryerLayout2.setVisibility(View.VISIBLE);
-                mFryerLayout3.setVisibility(View.GONE);
-                mFryerLayout4.setVisibility(View.GONE);
-            } else if (numberOfFryer == 3) {
-                mFryerLayout2.setVisibility(View.VISIBLE);
-                mFryerLayout3.setVisibility(View.VISIBLE);
-                mFryerLayout4.setVisibility(View.GONE);
-            } else if (numberOfFryer == 4) {
-                mFryerLayout2.setVisibility(View.VISIBLE);
-                mFryerLayout3.setVisibility(View.VISIBLE);
-                mFryerLayout4.setVisibility(View.VISIBLE);
+        } else if (key.equals(getString(R.string.number_of_fryers_key))) {
+            manageLinearLayoutsVisibility();
+
+        } else if (key.contains(getString(R.string.number_of_zones_fryer_key))) {
+            getZonesFryerAndManage(key);
+        }
+    }
+
+    private void getZonesFryerAndManage(String key) {
+        // todo there is way to avoid these ifs, linking the values.
+        if (key.equals(getString(R.string.number_of_zones_fryer1_key))) {
+            manageZonesVisibility(mFryer1, key);
+
+        } else if (key.equals(getString(R.string.number_of_zones_fryer2_key))) {
+            manageZonesVisibility(mFryer2, key);
+
+        } else if (key.equals(getString(R.string.number_of_zones_fryer3_key))) {
+            manageZonesVisibility(mFryer3, key);
+
+        } else if (key.equals(getString(R.string.number_of_zones_fryer4_key))) {
+            manageZonesVisibility(mFryer4, key);
+        }
+    }
+
+
+    /*
+    *
+    * */
+    // todo check all this
+    private void manageZonesVisibility(Fryer fryer, String key) {
+
+        int numberOfZones = Integer.parseInt(mPrefs.getString(key, ""));
+
+        // There is no logic for zone 1 because it is suppose to have at least one zone
+        if (numberOfZones == 1) {
+            fryer.zoneB.mZoneText.setVisibility(View.GONE);
+            fryer.zoneB.mSummaryText.setVisibility(View.GONE);
+            if (fryer.zoneB.mTimer != null) {
+                resetCounterAndVariables(fryer.zoneB);
             }
+
+            fryer.zoneC.mZoneText.setVisibility(View.GONE);
+            fryer.zoneC.mSummaryText.setVisibility(View.GONE);
+            if (fryer.zoneC.mTimer != null) {
+                resetCounterAndVariables(fryer.zoneC);
+            }
+
+        } else if (numberOfZones == 2) {
+            fryer.zoneB.mZoneText.setVisibility(View.VISIBLE);
+            fryer.zoneB.mZoneText.setText(R.string.zone_b);
+
+            fryer.zoneC.mZoneText.setVisibility(View.GONE);
+            fryer.zoneC.mSummaryText.setVisibility(View.GONE);
+            if (fryer.zoneC.mTimer != null) {
+                // todo repair cancel
+                resetCounterAndVariables(fryer.zoneC);
+            }
+
+        } else if (numberOfZones == 3) {
+            fryer.zoneB.mZoneText.setVisibility(View.VISIBLE);
+            fryer.zoneC.mZoneText.setVisibility(View.VISIBLE);
+            fryer.zoneB.mZoneText.setText(R.string.zone_b);
+            fryer.zoneC.mZoneText.setText(R.string.zone_c);
+        }
+    }
+
+    /*
+    *
+    * */
+    private void manageLinearLayoutsVisibility() {
+        int numberOfFryer = Integer.parseInt(mPrefs.getString(getString(R.string.number_of_fryers_key),
+                getString(R.string.number_of_fryers_default_value)));
+
+        if (numberOfFryer == 1) {
+            mFryerLayout2.setVisibility(View.GONE);
+            mFryerLayout3.setVisibility(View.GONE);
+            mFryerLayout4.setVisibility(View.GONE);
+        } else if (numberOfFryer == 2) {
+            mFryerLayout2.setVisibility(View.VISIBLE);
+            mFryerLayout3.setVisibility(View.GONE);
+            mFryerLayout4.setVisibility(View.GONE);
+        } else if (numberOfFryer == 3) {
+            mFryerLayout2.setVisibility(View.VISIBLE);
+            mFryerLayout3.setVisibility(View.VISIBLE);
+            mFryerLayout4.setVisibility(View.GONE);
+        } else if (numberOfFryer == 4) {
+            mFryerLayout2.setVisibility(View.VISIBLE);
+            mFryerLayout3.setVisibility(View.VISIBLE);
+            mFryerLayout4.setVisibility(View.VISIBLE);
         }
     }
 
@@ -648,7 +696,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        mPrefs.unregisterOnSharedPreferenceChangeListener(this);
     }
 
     /*

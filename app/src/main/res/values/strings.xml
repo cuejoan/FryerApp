@@ -1,51 +1,60 @@
 <resources>
-    <string name="app_name">FryerApp</string>
+    <string name="app_name">Maestro Chef Timer</string>
+    <string name="action_settings">Settings</string>
 
-    <string name="fryer_timer">Fryer Timer</string>
-
-    <!-- Category name for the vocabulary words for colors [CHAR LIMIT=20] -->
-    <string name="fryer_timer_settings">Fryer Timer Settings</string>
-
-    <!-- Category name for the vocabulary words for numbers [CHAR LIMIT=20] -->
-    <string name="menu_item_settings">Menu Item Settings</string>
-
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    // Texts for Zones' TextViews
     <string name="zone_a">Zone A</string>
     <string name="zone_b">Zone B</string>
     <string name="zone_c">Zone C</string>
 
+    // Texts for Fryers' TextViews
     <string name="fryer_1">Fryer 1</string>
     <string name="fryer_2">Fryer 2</string>
     <string name="fryer_3">Fryer 3</string>
     <string name="fryer_4">Fryer 4</string>
 
+    // Used by ListPreference "How many Fryers would you like to use?
     <string name="number_of_fryers_title">How many fryers would you like to use?</string>
-
     <string name="number_of_fryers_key">num_fryers</string>
-
     <string name="number_of_fryers_default_value">4</string>
-
+    // Used by the Array ListPreference "How many Fryers would you like to use?
     <string name="one_fryer_label">One</string>
     <string name="two_fryer_label">Two</string>
     <string name="three_fryer_label">Three</string>
     <string name="four_fryer_label">Four</string>
-
+    // Used by the Array of ListPreference "How many Fryers would you like to use?"
     <string name="one_fryer_value">1</string>
     <string name="two_fryer_value">2</string>
     <string name="three_fryer_value">3</string>
     <string name="four_fryer_value">4</string>
 
+    //
+    <string name="number_of_zones_fryer_key">How many zones would you like for Fryer</string>
+    <string name="number_of_zones_fryer1_key">How many zones would you like for Fryer 1?</string>
+    <string name="number_of_zones_fryer2_key">How many zones would you like for Fryer 2?</string>
+    <string name="number_of_zones_fryer3_key">How many zones would you like for Fryer 3?</string>
+    <string name="number_of_zones_fryer4_key">How many zones would you like for Fryer 4?</string>
+    <string name="number_of_zones_default_value">3</string>
+    // Used by the Arrays ListPreference "How many Zones would you like for Zone X?
+    <string name="one_zone_label">One</string>
+    <string name="two_zone_label">Two</string>
+    <string name="three_zone_label">Three</string>
+    // Used by the Arrays ListPreference "How many Zones would you like for Zone X?
+    <string name="one_zone_value">1</string>
+    <string name="two_zone_value">2</string>
+    <string name="three_zone_value">3</string>
+
+
+    // Used for buttons
     <string name="button_default_value">true</string>
+    <string name="edit_text_time_title">Time</string>
+    <string name="edit_text_name_title">Name</string>
 
-    <string name="action_settings">Settings</string>
 
 
-    <string name="button_visibility">button_visibility</string>
+   <!-- <string name="button_visibility">button_visibility</string>
     <string name="button_text">button_text</string>
-    <string name="button_time">button_time</string>
+    <string name="button_time">button_time</string>-->
+
 </resources>
 

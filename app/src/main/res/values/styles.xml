@@ -9,7 +9,7 @@
     </style>
 
     <!-- This style is applied to the SettingActivity in the manifest-->
-    <style name="AppTheme.SettingsTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.SettingsTheme" >
         <item name="colorPrimary">@color/colorAccent</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:preferenceCategoryStyle">@style/PreferenceCategoryStyle</item>

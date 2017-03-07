@@ -201,8 +201,7 @@ visibility to Visible -->
 
                 <TextView
                     android:id="@+id/text_fryer4_zoneB"
-                    style="@style/counter_text_views_styles"
-                    android:text="@string/zone_b"/>
+                    style="@style/counter_text_views_styles"/>
 
                 <TextView
                     android:id="@+id/summ_fryer4_zoneB"

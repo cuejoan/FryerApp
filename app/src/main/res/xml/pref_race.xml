@@ -1,14 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen
-        android:title="Fryers">
+        android:title="Fryers"
+        android:key="fryers">
 
-        <ListPreference
-            android:defaultValue="@string/number_of_fryers_default_value"
-            android:entries="@array/number_of_fryers_labels"
-            android:entryValues="@array/number_of_fryers_values"
-            android:key="@string/number_of_fryers_key"
-            android:title="@string/number_of_fryers_title" />
+
+        <PreferenceCategory>
+
+            <ListPreference
+                android:defaultValue="@string/number_of_fryers_default_value"
+                android:entries="@array/number_of_fryers_labels"
+                android:entryValues="@array/number_of_fryers_values"
+                android:key="@string/number_of_fryers_key"
+                android:title="@string/number_of_fryers_title" />
+        </PreferenceCategory>
+
+            <PreferenceCategory
+                android:title="Fryer 1"
+                android:key="fryer1_category">
+
+                <ListPreference
+                    android:title="@string/number_of_zones_fryer1_key"
+                    android:key="@string/number_of_zones_fryer1_key"
+                    android:defaultValue="@string/number_of_zones_default_value"
+                    android:entries="@array/number_of_zones_labels"
+                    android:entryValues="@array/number_of_zones_values"/>
+            </PreferenceCategory>
+
+            <PreferenceCategory
+                android:title="Fryer 2"
+                android:key="fryer2_category">
+
+                <ListPreference
+                    android:title="@string/number_of_zones_fryer2_key"
+                    android:key="@string/number_of_zones_fryer2_key"
+                    android:defaultValue="@string/number_of_zones_default_value"
+                    android:entries="@array/number_of_zones_labels"
+                    android:entryValues="@array/number_of_zones_values"/>
+            </PreferenceCategory>
+
+            <PreferenceCategory
+                android:title="Fryer 3"
+                android:key="fryer3_category">
+
+                <ListPreference
+                    android:title="@string/number_of_zones_fryer3_key"
+                    android:key="@string/number_of_zones_fryer3_key"
+                    android:defaultValue="@string/number_of_zones_default_value"
+                    android:entries="@array/number_of_zones_labels"
+                    android:entryValues="@array/number_of_zones_values"/>
+            </PreferenceCategory>
+
+            <PreferenceCategory
+                android:title="Fryer 4"
+                android:key="fryer4_category">
+
+                <ListPreference
+                    android:title="@string/number_of_zones_fryer4_key"
+                    android:key="@string/number_of_zones_fryer4_key"
+                    android:defaultValue="@string/number_of_zones_default_value"
+                    android:entries="@array/number_of_zones_labels"
+                    android:entryValues="@array/number_of_zones_values"/>
+            </PreferenceCategory>
 
     </PreferenceScreen>
     <PreferenceScreen
@@ -23,15 +76,15 @@
 
                 <EditTextPreference
                     android:dependency="button1_visibility"
-                    android:defaultValue="1"
+                    android:defaultValue="Chicken"
                     android:key="button1_text"
-                    android:title="Name"/>
+                    android:title="@string/edit_text_name_title"/>
 
                 <EditTextPreference
                     android:dependency="button1_visibility"
                     android:defaultValue="15"
                     android:key="button1_time"
-                    android:title="Time" />
+                    android:title="@string/edit_text_time_title" />
             </PreferenceCategory>
 
             <PreferenceCategory
@@ -43,15 +96,15 @@
 
                 <EditTextPreference
                     android:dependency="button2_visibility"
-                    android:defaultValue="2"
+                    android:defaultValue="Chicken"
                     android:key="button2_text"
-                    android:title="Name"/>
+                    android:title="@string/edit_text_name_title"/>
 
                 <EditTextPreference
                     android:dependency="button2_visibility"
                     android:defaultValue="15"
                     android:key="button2_time"
-                    android:title="Time" />
+                    android:title="@string/edit_text_time_title" />
             </PreferenceCategory>
 
             <PreferenceCategory
@@ -63,15 +116,15 @@
 
                 <EditTextPreference
                     android:dependency="button3_visibility"
-                    android:defaultValue="3"
+                    android:defaultValue="Chicken"
                     android:key="button3_text"
-                    android:title="Name"/>
+                    android:title="@string/edit_text_name_title"/>
 
                 <EditTextPreference
                     android:dependency="button3_visibility"
                     android:defaultValue="15"
                     android:key="button3_time"
-                    android:title="Time" />
+                    android:title="@string/edit_text_time_title" />
             </PreferenceCategory>
 
             <PreferenceCategory
@@ -83,15 +136,15 @@
 
                 <EditTextPreference
                     android:dependency="button4_visibility"
-                    android:defaultValue="4"
+                    android:defaultValue="Chicken"
                     android:key="button4_text"
-                    android:title="Name"/>
+                    android:title="@string/edit_text_name_title"/>
 
                 <EditTextPreference
                     android:dependency="button4_visibility"
                     android:defaultValue="15"
                     android:key="button4_time"
-                    android:title="Time" />
+                    android:title="@string/edit_text_time_title" />
             </PreferenceCategory>
 
             <PreferenceCategory
@@ -103,15 +156,15 @@
 
                 <EditTextPreference
                     android:dependency="button5_visibility"
-                    android:defaultValue="5"
+                    android:defaultValue="Chicken"
                     android:key="button5_text"
-                    android:title="Name"/>
+                    android:title="@string/edit_text_name_title"/>
 
                 <EditTextPreference
                     android:dependency="button5_visibility"
                     android:defaultValue="15"
                     android:key="button5_time"
-                    android:title="Time" />
+                    android:title="@string/edit_text_time_title" />
             </PreferenceCategory>
 
             <PreferenceCategory
@@ -123,15 +176,15 @@
 
                 <EditTextPreference
                     android:dependency="button6_visibility"
-                    android:defaultValue="6"
+                    android:defaultValue="Chicken"
                     android:key="button6_text"
-                    android:title="Name"/>
+                    android:title="@string/edit_text_name_title"/>
 
                 <EditTextPreference
                     android:dependency="button6_visibility"
                     android:defaultValue="15"
                     android:key="button6_time"
-                    android:title="Time" />
+                    android:title="@string/edit_text_time_title" />
             </PreferenceCategory>
 
             <PreferenceCategory
@@ -143,15 +196,15 @@
 
                 <EditTextPreference
                     android:dependency="button7_visibility"
-                    android:defaultValue="7"
+                    android:defaultValue="Chicken"
                     android:key="button7_text"
-                    android:title="Name"/>
+                    android:title="@string/edit_text_name_title"/>
 
                 <EditTextPreference
                     android:dependency="button7_visibility"
                     android:defaultValue="15"
                     android:key="button7_time"
-                    android:title="Time" />
+                    android:title="@string/edit_text_time_title" />
             </PreferenceCategory>
 
             <PreferenceCategory
@@ -164,15 +217,14 @@
                 <EditTextPreference
                     android:dependency="button8_visibility"
                     android:key="button8_text"
-                    android:title="Name"
-                    android:defaultValue="8"/>
+                    android:title="@string/edit_text_name_title"
+                    android:defaultValue="Chicken"/>
 
                 <EditTextPreference
                     android:dependency="button8_visibility"
                     android:defaultValue="15"
                     android:key="button8_time"
-                    android:title="Time" />
+                    android:title="@string/edit_text_time_title" />
             </PreferenceCategory>
-
     </PreferenceScreen>
 </PreferenceScreen>

@@ -12,15 +12,24 @@ import java.util.concurrent.TimeUnit;
 
 class Fryer {
 
+    private String a;
+    private String b;
+    private String c;
+
+    // todo maybe change this to a list
     Zone zoneA;
     Zone zoneB;
     Zone zoneC;
 
-    Fryer() {
+    Fryer(Context context) {
 
-        zoneA = new Zone();
-        zoneB = new Zone();
-        zoneC = new Zone();
+        a = context.getString(R.string.zone_a);
+        b = context.getString(R.string.zone_b);
+        c = context.getString(R.string.zone_c);
+
+        zoneA = new Zone(a);
+        zoneB = new Zone(b);
+        zoneC = new Zone(c);
     }
 
     class Zone{
@@ -31,13 +40,14 @@ class Fryer {
         TextView mZoneText;
         TextView mSummaryText;
 
-        String defaultTextZones;
+        String mDefaultTextZone;
 
         CustomCountDownTimer mTimer;
 
-        private Zone(){
+        private Zone(String defaultTextZone){
             // This is the only variable initialized because the rest are false by default.
             mIsStop = true;
+            mDefaultTextZone = defaultTextZone;
             mTimer = new CustomCountDownTimer() {
                 @Override
                 public void onTick(long millisUntilFinished, TextView textView) {
