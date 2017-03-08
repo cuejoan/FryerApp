@@ -4,8 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -27,8 +30,10 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     private static final boolean BUTTONS_DEFAULT_VISIBILITY = true;
     private static final String BUTTONS_DEFAULT_TIME = "15";
     private static final String BUTTONS_DEFAULT_NAME = "Chicken";
-    private static final int ONE_MINUTE_IN_MILLISECONDS = 60000;
+    private static final int ONE_MINUTE_IN_MILLISECONDS = 600;
     private static final int NO_BUTTON_IS_SELECTED = 100;
+    private static final String DEFAULT_NUM_OF_ZONES = "3";
+    private static final String DEFAULT_NUM_OF_FRYERS = "4";
 
 
     // I am hardcoding the string because if a get the values from resources the switch block show
@@ -49,7 +54,6 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     private LinearLayout mFryerLayout3;
     private LinearLayout mFryerLayout4;
 
-
     private ArrayList<ButtonValue> mButtonValues = new ArrayList<>();
 
 
@@ -67,6 +71,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         // Create a sharedPreference object and register a ChangeListener
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
+
 
 
         boolean fryer1 = mPrefs.getBoolean("fryer1_visibility", BUTTONS_DEFAULT_VISIBILITY);
@@ -187,8 +192,6 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         fryer.zoneC.mZoneText.setOnLongClickListener(this);
     }
 
-
-
     /*
     * Manage all the logic, to pause, resume, stop, what to show in the TextView that was click.
     *
@@ -217,7 +220,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
                 // "Are you sure ...."
             } else {
                 // Throws a dialog, if confirm
-                confirmationDialogAndStartTimer(zone.mTimer, buttonValue, zone.mSummaryText);
+                confirmationDialogAndStartTimer(zone, buttonValue);
                 buttonValue.saveSelected(false);
                 resetButton(buttonValue);
             }
@@ -237,6 +240,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             } else if (zone.mIsStop) {
                 zone.mZoneText.setText(zone.mDefaultTextZone);
                 zone.mSummaryText.setVisibility(View.GONE);
+                zone.releaseMediaPlayer();
             }
         }
     }
@@ -364,8 +368,8 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
      * Prompt the user to confirm that they want to change the current cooking time.
      * If
      */
-    private void confirmationDialogAndStartTimer(final CustomCountDownTimer customCountDownTimer,
-                                                 final ButtonValue buttonValue, final TextView summaryText) {
+    private void confirmationDialogAndStartTimer(final Fryer.Zone zone,
+                                                 final ButtonValue buttonValue) {
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -373,8 +377,8 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Yes" buttonLogic, so change the current cooking time.
-                customCountDownTimer.setTimeAndStart(buttonValue.getTime(), INTERVAL);
-                summaryText.setText(buttonValue.getText());
+                zone.mTimer.setTimeAndStart(buttonValue.getTime(), INTERVAL);
+                zone.mSummaryText.setText(buttonValue.getText());
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -543,7 +547,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         } else if (key.equals(mButtonValues.get(7).getVisibilityKey())) {
             manageButtonVisibility(mButtonValues.get(7));
 
-
+        // todo maybe update summary name summary here instead of in the in SettingsFragment
         // If any Name EditTextPreferences is modified, set the new text to the appropriate button.
         } else if (key.equals(mButtonValues.get(0).getNameKey())) {
             setAndSaveButtonName(mButtonValues.get(0));
@@ -570,6 +574,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             setAndSaveButtonName(mButtonValues.get(7));
 
 
+        // todo maybe update summary time summary here instead of in the in SettingsFragment
         // If any Time EditTextPreferences is modified, set the new text to the appropriate button.
         } else if (key.equals(mButtonValues.get(0).getTimeKey())) {
             mButtonValues.get(0).saveTime(getTime(mButtonValues.get(0)));
@@ -629,7 +634,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     // todo check all this
     private void manageZonesVisibility(Fryer fryer, String key) {
 
-        int numberOfZones = Integer.parseInt(mPrefs.getString(key, ""));
+        int numberOfZones = Integer.parseInt(mPrefs.getString(key, DEFAULT_NUM_OF_ZONES));
 
         // There is no logic for zone 1 because it is suppose to have at least one zone
         if (numberOfZones == 1) {
@@ -669,7 +674,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     * */
     private void manageLinearLayoutsVisibility() {
         int numberOfFryer = Integer.parseInt(mPrefs.getString(getString(R.string.number_of_fryers_key),
-                getString(R.string.number_of_fryers_default_value)));
+                DEFAULT_NUM_OF_FRYERS));
 
         if (numberOfFryer == 1) {
             mFryerLayout2.setVisibility(View.GONE);
@@ -692,6 +697,12 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
 
     /*
     *
+    * For proper lifecycle management in the activity the listener is unregister when the Activity
+    * is destroyed
+    *
+    * https://developer.android.com/guide/topics/ui/settings.html recommends to register and
+    * unregister in onResume() and onPaused(), but in this activity make the listener not to work,
+    * although I didn't try to fins for because Udacity did it this way, and it is good anyway.
     * */
     @Override
     protected void onDestroy() {
@@ -700,8 +711,8 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /*
-        *
-        * */
+    *
+    * */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;

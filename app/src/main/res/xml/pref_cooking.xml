@@ -35,7 +35,7 @@
                 android:title="Type the time in minutes" />
 
 
-            <SwitchPreferenceCompat
+            <SwitchPreference
                 android:defaultValue="true"
                 android:key="button1_visibility"
                 android:title="Visible" />

@@ -1,6 +1,8 @@
 package com.example.android.fryerapp;
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -12,9 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 class Fryer {
 
-    private String a;
-    private String b;
-    private String c;
+    private Context mContext;
 
     // todo maybe change this to a list
     Zone zoneA;
@@ -23,13 +23,15 @@ class Fryer {
 
     Fryer(Context context) {
 
-        a = context.getString(R.string.zone_a);
-        b = context.getString(R.string.zone_b);
-        c = context.getString(R.string.zone_c);
+        mContext = context;
 
-        zoneA = new Zone(a);
-        zoneB = new Zone(b);
-        zoneC = new Zone(c);
+        String zoneAText = context.getString(R.string.zone_a);
+        String zoneBText = context.getString(R.string.zone_b);
+        String zoneCText = context.getString(R.string.zone_c);
+
+        zoneA = new Zone(zoneAText);
+        zoneB = new Zone(zoneBText);
+        zoneC = new Zone(zoneCText);
     }
 
     class Zone{
@@ -44,10 +46,15 @@ class Fryer {
 
         CustomCountDownTimer mTimer;
 
+        MediaPlayer mMediaPlayer;
+
         private Zone(String defaultTextZone){
             // This is the only variable initialized because the rest are false by default.
             mIsStop = true;
             mDefaultTextZone = defaultTextZone;
+
+            // todo think about instantiate the Timer just when need it
+            // todo Should I use CustomCountDownTimer for each zone or just one.
             mTimer = new CustomCountDownTimer() {
                 @Override
                 public void onTick(long millisUntilFinished, TextView textView) {
@@ -60,6 +67,9 @@ class Fryer {
                 public void onFinish(TextView view) {
                     view.setText("Time's up!");
                     setVariablesToStopMode();
+                    mMediaPlayer = MediaPlayer.create(mContext, R.raw.alarm_sound);
+                    mMediaPlayer.setLooping(true);
+                    mMediaPlayer.start();
                 }
             };
         }
@@ -83,6 +93,19 @@ class Fryer {
             mIsPaused = false;
             mIsRunning = false;
             mIsStop = true;
+        }
+
+        /**
+         * Clean up the media player by releasing its resources.
+         */
+        void releaseMediaPlayer() {
+            // If the media player is not null, then it may be currently playing a sound.
+            if (mMediaPlayer != null) {
+                // Regardless of the current state of the media player, release its resources
+                // because we no longer need it.
+                mMediaPlayer.release();
+                mMediaPlayer = null;
+            }
         }
 
 
@@ -119,7 +142,4 @@ class Fryer {
                     '}';
         }
     }
-
-
-
 }
