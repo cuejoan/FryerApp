@@ -377,6 +377,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Yes" buttonLogic, so change the current cooking time.
+                zone.mTimer.cancel();
                 zone.mTimer.setTimeAndStart(buttonValue.getTime(), INTERVAL);
                 zone.mSummaryText.setText(buttonValue.getText());
             }
