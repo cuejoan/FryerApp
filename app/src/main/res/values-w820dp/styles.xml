@@ -19,6 +19,7 @@
         <item name="android:layout">@layout/pref_category_race</item>
     </style>
 
+
     <style name="AppTheme.SettingsTheme.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="buttons_style">

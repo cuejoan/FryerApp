@@ -50,6 +50,7 @@
     <string name="edit_text_time_title">Time</string>
     <string name="edit_text_name_title">Name</string>
 
+    <string name="time_is_up">"Time's up!"</string>
 
 
    <!-- <string name="button_visibility">button_visibility</string>

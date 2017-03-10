@@ -4,11 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -28,9 +26,9 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     //this variable divides the milliseconds
     private static final long INTERVAL = 1000;
     private static final boolean BUTTONS_DEFAULT_VISIBILITY = true;
-    private static final String BUTTONS_DEFAULT_TIME = "15";
+    private static final int BUTTONS_DEFAULT_TIME = 15;
     private static final String BUTTONS_DEFAULT_NAME = "Chicken";
-    private static final int ONE_MINUTE_IN_MILLISECONDS = 600;
+    private static final int ONE_SECOND_IN_MILLISECONDS = 1000;
     private static final int NO_BUTTON_IS_SELECTED = 100;
     private static final String DEFAULT_NUM_OF_ZONES = "3";
     private static final String DEFAULT_NUM_OF_FRYERS = "4";
@@ -193,7 +191,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /*
-    * Manage all the logic, to pause, resume, stop, what to show in the TextView that was click.
+    * Manage all the logic, to pause, resume, stop, numberpicker_dialog to show in the TextView that was click.
     *
     * @ zone is the Zone object with the logic boolean variable, mIsPaused, mIsRunning and mIsStop.
     * @ view is the TextView that was being click and will be modified.
@@ -299,7 +297,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         }else {
             // Get the button and make it gone in the layout.
             buttonValue.getButton().setVisibility(View.GONE);
-            // Without this line if you would click a button, hide it, and show it, it would
+            // Without this line if you click a button, hide it, and show it, it would
             // appear in Selected state, this is very unlikely to happen, but it's a logic bug.
             resetButton(buttonValue);
         }
@@ -323,8 +321,9 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     *
     * */
     private int getTime(ButtonValue buttonValue) {
-        return Integer.parseInt(mPrefs.getString(buttonValue.getTimeKey(), BUTTONS_DEFAULT_TIME))
-                * ONE_MINUTE_IN_MILLISECONDS;
+
+        return mPrefs.getInt(buttonValue.getTimeKey(), 15)
+              * ONE_SECOND_IN_MILLISECONDS;
     }
 
     /*
@@ -519,9 +518,6 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     // todo decide is change it for Preferece.OnChangeListener
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
-        Log.i(TAG, "shared");
-
         // If any of the SwitchPreferences are switch, check the new visibility of the button and
         // make visible or gone in activity_fryer.xml
         if (key.equals(mButtonValues.get(0).getVisibilityKey())) {

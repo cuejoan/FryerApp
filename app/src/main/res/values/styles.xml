@@ -4,8 +4,6 @@
         <item name="colorPrimary">#1565C0</item>
         <item name="colorPrimaryDark">#0D47A1</item>
         <item name="colorAccent">#1E88E5</item>
-        <!--make the action bar thinner-->
-        <item name="actionBarSize">32dp</item>
     </style>
 
     <!-- This style is applied to the SettingActivity in the manifest-->

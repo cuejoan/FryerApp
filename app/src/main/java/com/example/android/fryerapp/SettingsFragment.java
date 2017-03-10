@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import android.widget.ListView;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+import java.util.function.LongFunction;
 
 /**
  * Created by yajos on 3/6/17.
@@ -73,6 +77,13 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                 bindPreferenceSummaryToValue(findPreference(buttonKey));
             }
         }
+/*
+        for (String button : BUTTON_TIME_KEYS){
+            bindPreferenceSummaryToValue(findPreference(button));
+        }*/
+        Log.i(TAG, findPreference("button1_time").toString());
+        Log.i(TAG, findPreference("button2_time").toString());
+        Log.i(TAG, findPreference("button3_time").toString());
     }
 
     /*
@@ -86,10 +97,20 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
             preference.setOnPreferenceChangeListener(this);
             SharedPreferences preferences =
                     PreferenceManager.getDefaultSharedPreferences(preference.getContext());
-            String preferenceString = preferences.getString(preference.getKey(), "");
-            // Trigger the listener when the app is launched with the preference's current value to
-            // the summary text gotten from the SharePreferences.
-            onPreferenceChange(preference, preferenceString);
+
+            if (!preference.getKey().contains("time")) {
+                String preferenceString = preferences.getString(preference.getKey(), "");
+                // Trigger the listener when the app is launched with the preference's current value to
+                // the summary text gotten from the SharePreferences.
+                onPreferenceChange(preference, preferenceString);
+            } else {
+                Log.i(TAG, "trigered");
+                int preferenceInt = preferences.getInt(preference.getKey(), 15);
+                Log.i(TAG, String.valueOf(preferenceInt));
+                // Trigger the listener when the app is launched with the preference's current value to
+                // the summary text gotten from the SharePreferences.
+                onPreferenceChange(preference, preferenceInt);
+            }
         }
     }
 
@@ -98,6 +119,8 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     * */
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
+
+        Log.i(TAG, "listener");
 
         if (preference.getKey().equals(getString(R.string.number_of_fryers_key))) {
             int numOfFryers = Integer.parseInt(value.toString());
@@ -133,8 +156,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                     break;
             }
         }
-
-        setPreferenceSummary(preference, value.toString());
+        setPreferenceSummary(preference, value);
 
         return true;
     }
@@ -143,17 +165,23 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     *
     * */
     // TODO: change for title.contains(mTimeETTitle) for key.contains
-    private void setPreferenceSummary(Preference preference, String value) {
+    private void setPreferenceSummary(Preference preference, Object value) {
         String title = preference.getTitle().toString();
         int newSizeTittle = title.length();
         // Get the first four characters, "Time" or "Name" and add the value, I did this to avoid
         // making a custom preference to set the summary next to the title, if you don't do
         // subString the title keeps growing.
+
+        Log.i(TAG, "titleeeeeee");
+
         if (title.contains(mTimeETTitle)) {
             // Math.min(sizeTittle, SIZE_TIME_STRING)  to protect the app against a crash, if for
             // some reason the
             preference.setTitle(title.substring(0, Math.min(newSizeTittle, mSizeTimeETTitle))
-                    + SIXTEEN_SPACES + value);
+                    + SIXTEEN_SPACES + formatTime(Long.valueOf(String.valueOf(value)) * 1000));
+
+
+
 
         } else if (title.contains(mNameETTitle)) {
             preference.setTitle(title.substring(0, Math.min(newSizeTittle, mSizeNameETTitle)) +
@@ -311,5 +339,30 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         String[] numOfFryersKey = {getString(R.string.number_of_fryers_key)};
 
         arrayButtonKeys = Arrays.asList(BUTTON_NAME_KEYS, BUTTON_TIME_KEYS, zonesTitles, numOfFryersKey);
+    }
+
+
+    /*
+    *
+    * Convert milliseconds to a String with format hh:mm:ss
+    *
+    * @param milliseconds
+    * */
+    // // TODO: declare this function only one time
+    String formatTime(long milliseconds) {
+        int oneHour = 3600000;
+        if (milliseconds < oneHour){
+            return String.format(Locale.getDefault(), "%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(milliseconds) -
+                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliseconds)),
+                    TimeUnit.MILLISECONDS.toSeconds(milliseconds) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliseconds)));
+        }
+        return String.format(Locale.getDefault(),"%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(milliseconds),
+                TimeUnit.MILLISECONDS.toMinutes(milliseconds) -
+                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliseconds)),
+                TimeUnit.MILLISECONDS.toSeconds(milliseconds) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliseconds)));
     }
 }

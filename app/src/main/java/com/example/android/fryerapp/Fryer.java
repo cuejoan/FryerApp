@@ -16,7 +16,6 @@ class Fryer {
 
     private Context mContext;
 
-    // todo maybe change this to a list
     Zone zoneA;
     Zone zoneB;
     Zone zoneC;
@@ -53,8 +52,8 @@ class Fryer {
             mIsStop = true;
             mDefaultTextZone = defaultTextZone;
 
-            // todo think about instantiate the Timer just when need it
-            // todo Should I use CustomCountDownTimer for each zone or just one.
+            // todo if no logic to create the necessaries Fryers, think about instantiate the Timer
+            // just when need it, and put the onFinish logic in the CustomCountDownTime
             mTimer = new CustomCountDownTimer() {
                 @Override
                 public void onTick(long millisUntilFinished, TextView textView) {
@@ -65,7 +64,7 @@ class Fryer {
 
                 @Override
                 public void onFinish(TextView view) {
-                    view.setText("Time's up!");
+                    view.setText(R.string.time_is_up);
                     setVariablesToStopMode();
                     mMediaPlayer = MediaPlayer.create(mContext, R.raw.alarm_sound);
                     mMediaPlayer.setLooping(true);
