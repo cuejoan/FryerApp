@@ -1,5 +1,6 @@
 package com.example.android.fryerapp;
 
+import android.view.View;
 import android.widget.Button;
 
 /**
@@ -10,24 +11,37 @@ class ButtonValue {
 
     private Button mButton;
 
-    private boolean mVisible;
-    private String mVisibilityKey;
+    private boolean mMenuItemVisible;
+    private String mMenuItemVisibilityKey;
+    private boolean mActionState;
+    private String mActionStateKey;
 
-    private int mTime;
-    private String mTimeKey;
-    
-    private String mName;
-    private String mNameKey;
+    private String mMenuItemName;
+    private String mMenuItemNameKey;
+    private String mActionName = "test";
+    private String mActionNameKey;
+
+    private int mMenuItemTime;
+    private String mMenuItemTimeKey;
+    private int mActionTime = 8;
+    private String mActionTimeKey;
+
+
 
     private boolean mIsSelected = false;
 
 
-    ButtonValue(Button button, String buttonVisibilityKey, String buttonTimeKey,
-                       String buttonNameKey) {
-        mButton = button;
-        mVisibilityKey = buttonVisibilityKey;
-        mTimeKey = buttonTimeKey;
-        mNameKey = buttonNameKey;
+    ButtonValue(View button, String menuItemVisibilityKey, String menuItemNameKey,
+                String menuItemTimeKey, String actionIsActiveKey, String actionNameKey,
+                String actionTimeKey) {
+
+        mButton = (Button) button;
+        mMenuItemVisibilityKey = menuItemVisibilityKey;
+        mMenuItemTimeKey = menuItemTimeKey;
+        mMenuItemNameKey = menuItemNameKey;
+        mActionStateKey = actionIsActiveKey;
+        mActionNameKey = actionNameKey;
+        mActionTimeKey = actionTimeKey;
     }
 
     // Getter methods
@@ -35,18 +49,35 @@ class ButtonValue {
     *
     * */
     String getVisibilityKey() {
-        return mVisibilityKey;
+        return mMenuItemVisibilityKey;
     }
 
     /*
     *
     * */
-    String getTimeKey() {
-        return mTimeKey;
+    String getMenuItemTimeKey() {
+        return mMenuItemTimeKey;
     }
 
-    String getNameKey() {
-        return mNameKey;
+    /*
+    *
+    * */
+    String getActionTimeKey() {
+        return mActionTimeKey;
+    }
+
+    /*
+    *
+    * */
+    String getMenuItemNameKey() {
+        return mMenuItemNameKey;
+    }
+
+    /*
+    *
+    * */
+    String getActionNameKey() {
+        return mActionNameKey;
     }
 
     /*
@@ -59,16 +90,41 @@ class ButtonValue {
     /*
     *
     * */
-    int getTime() {
-        return mTime;
+    int getMenuItemTime() {
+        return mMenuItemTime;
     }
 
     /*
     *
     * */
-    String getText() {
-        return mName;
+    int getActionTime() {  return mActionTime;  }
+
+    /*
+    *
+    * */
+    String getMenuItemName() {
+        return mMenuItemName;
     }
+
+    /*
+    *
+    * */
+    String getActionName() {  return mActionName;  }
+
+    /*
+    *
+    * */
+    String getActionStateKey() {
+        return mActionStateKey;
+    }
+
+    /*
+    *
+    * */
+    boolean getActionState() {
+        return mActionState;
+    }
+
 
     /*
     *
@@ -81,8 +137,9 @@ class ButtonValue {
     *
     * */
     boolean isVisible() {
-        return mVisible;
+        return mMenuItemVisible;
     }
+
 
 
 
@@ -92,15 +149,30 @@ class ButtonValue {
     /*
     *
     * */
-    void saveTime(int time){
-       mTime = time;
+    void saveMenuItemTime(int time){
+       mMenuItemTime = time;
     }
 
     /*
     *
     * */
-    void saveName(String name) {
-        mName = name;
+    void saveMenuItemName(String name) {
+        mMenuItemName = name;
+    }
+
+    // Setter methods
+    /*
+    *
+    * */
+    void saveActionTime(int time){
+        mActionTime = time;
+    }
+
+    /*
+    *
+    * */
+    void saveActionName(String name) {
+        mActionName = name;
     }
 
     /*
@@ -110,7 +182,14 @@ class ButtonValue {
     * so could be confusing.
     * */
     void saveVisibility(boolean visibility) {
-        mVisible =  visibility;
+        mMenuItemVisible =  visibility;
+    }
+
+    /*
+    *  Save whether the action is active or not.
+    * */
+    void saveActionState(boolean actionState) {
+        mActionState = actionState;
     }
 
     /*
@@ -119,8 +198,6 @@ class ButtonValue {
     void saveSelected(boolean buttonIsSelected) {
         mIsSelected = buttonIsSelected;
     }
-
-
 
 
 }

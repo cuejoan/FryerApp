@@ -3,7 +3,7 @@ package com.example.android.fryerapp;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.widget.TextView;
+import android.util.Log;
 
 
 /**
@@ -15,10 +15,14 @@ abstract class CustomCountDownTimer {  /**
      */
     private long mMillisInFuture;
 
+    private static final int MSG = 1;
+
     /**
      * The interval in millis that the user receives callbacks
      */
-    private long mCountdownInterval;
+    private long mCountdownInterval = 1000;
+
+    private static final int ONE_SECOND_IN_MILLISECOND = 1000;
 
     private long mStopTimeInFuture;
 
@@ -28,7 +32,8 @@ abstract class CustomCountDownTimer {  /**
 
     private boolean mPaused = false;
 
-    private TextView textView;
+    private ButtonValue mButtonValue;
+
 
     /**
      *
@@ -44,10 +49,9 @@ abstract class CustomCountDownTimer {  /**
     *   is called.
     * @param countDownInterval The interval along the way to receive
     * */
-    void setTimeAndStart(long millisInFuture, long countDownInterval, TextView tv) {
-        mMillisInFuture = millisInFuture;
-        mCountdownInterval = countDownInterval;
-        textView = tv;
+    void setTimeAndStart(ButtonValue buttonValue, Fryer.Zone zone) {
+        mMillisInFuture = buttonValue.getMenuItemTime();
+        mButtonValue = buttonValue;
         start();
     }
 
@@ -77,7 +81,7 @@ abstract class CustomCountDownTimer {  /**
      */
     synchronized final CustomCountDownTimer start() {
         if (mMillisInFuture <= 0) {
-            onFinish(textView);
+            onFinish();
             return this;
         }
         mStopTimeInFuture = SystemClock.elapsedRealtime() + mMillisInFuture;
@@ -97,6 +101,16 @@ abstract class CustomCountDownTimer {  /**
     }
 
     /**
+     * Pause the countdown.
+     */
+    long pauseAndSubtractOneSecond() {
+        mPauseTime = mStopTimeInFuture - SystemClock.elapsedRealtime() - mCountdownInterval;
+        mPaused = true;
+        return mPauseTime;
+    }
+    
+
+    /**
      * Resume the countdown.
      */
     long resume() {
@@ -105,20 +119,19 @@ abstract class CustomCountDownTimer {  /**
         mHandler.sendMessage(mHandler.obtainMessage(MSG));
         return mPauseTime;
     }
+    
+    
 
     /**
      * Callback fired on regular interval.
      * @param millisUntilFinished The amount of time until finished.
      */
-    public abstract void onTick(long millisUntilFinished, TextView view);
+    public abstract void onTick(long millisUntilFinished, ButtonValue buttonValue);
 
     /**
      * Callback fired when the time is up.
      */
-    public abstract void onFinish(TextView view);
-
-
-    private static final int MSG = 1;
+    public abstract void onFinish();
 
 
     // handles counting down
@@ -132,13 +145,13 @@ abstract class CustomCountDownTimer {  /**
                     final long millisLeft = mStopTimeInFuture - SystemClock.elapsedRealtime();
 
                     if (millisLeft <= 0) {
-                        onFinish(textView);
+                        onFinish();
                     } else if (millisLeft < mCountdownInterval) {
                         // no tick, just delay until done
                         sendMessageDelayed(obtainMessage(MSG), millisLeft);
                     } else {
                         long lastTickStart = SystemClock.elapsedRealtime();
-                        onTick(millisLeft, textView);
+                        onTick(millisLeft, mButtonValue);
 
                         // take into account user's onTick taking time to execute
                         long delay = lastTickStart + mCountdownInterval - SystemClock.elapsedRealtime();

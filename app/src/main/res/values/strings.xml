@@ -47,8 +47,11 @@
 
     // Used for buttons
     <string name="button_default_value">true</string>
-    <string name="edit_text_time_title">Time</string>
-    <string name="edit_text_name_title">Name</string>
+    <string name="menu_item_time">Time</string>
+    <string name="action_time">Action Time</string>
+    <string name="menu_item_name">Name</string>
+    <string name="action_name">Action Name</string>
+    <string name="would_like_action">Would you like to add an action?</string>
 
     <string name="time_is_up">"Time's up!"</string>
 

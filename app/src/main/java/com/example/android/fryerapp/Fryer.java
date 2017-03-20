@@ -2,7 +2,7 @@ package com.example.android.fryerapp;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit;
  */
 
 class Fryer {
+
+    private final static String TAG = Fryer.class.getName();
 
     private Context mContext;
 
@@ -34,8 +36,8 @@ class Fryer {
     }
 
     class Zone{
-        boolean mIsPaused;
-        boolean mIsRunning;
+        boolean mTimerIsPaused;
+        boolean mTimerIsRunning;
         boolean mIsStop;
 
         TextView mZoneText;
@@ -56,43 +58,70 @@ class Fryer {
             // just when need it, and put the onFinish logic in the CustomCountDownTime
             mTimer = new CustomCountDownTimer() {
                 @Override
-                public void onTick(long millisUntilFinished, TextView textView) {
-                    // Converts the millisecond to hh:mm:ss
-                    String counter = formatTime(millisUntilFinished);
-                    textView.setText(counter);
+                public void onTick(long millisUntilFinished, ButtonValue buttonValue) {
+                    // The exact value of millisUntilFinished at this point is quite to difficult
+                    // to expect because it's millisecond, the expected value is not accurate.
+                    // e.g you want to catch the value 14 000 but the nearest values are
+                    // 14 990 and 13 989, so round it to seconds solves this problem.
+                    long seconds = millisUntilFinished / 1000;
+                    if (buttonValue.getActionState() && seconds == buttonValue.getActionTime()) {
+                        Log.i(TAG, buttonValue.getActionName());
+                        mZoneText.setText(buttonValue.getActionName());
+                        // Pause and subtract one second to the counter in order not to fall again
+                        // in this if statement but in the following.
+                        pauseAndSubtractOneSecond();
+                        setVariablesToPausedMode();
+                        // Create, setLooping true and start Media Player.
+                        startMediaPlayer(R.raw.alarm_sound);
+                    } else {
+                        // Converts the millisecond to hh:mm:ss
+                        String counter = formatTime(millisUntilFinished);
+                        mZoneText.setText(counter);
+                    }
                 }
 
                 @Override
-                public void onFinish(TextView view) {
-                    view.setText(R.string.time_is_up);
+                public void onFinish() {
+                    mZoneText.setText(R.string.time_is_up);
                     setVariablesToStopMode();
-                    mMediaPlayer = MediaPlayer.create(mContext, R.raw.alarm_sound);
-                    mMediaPlayer.setLooping(true);
-                    mMediaPlayer.start();
+                    // Create, setLooping true and start Media Player.
+                    startMediaPlayer(R.raw.alarm_sound);
                 }
             };
         }
 
         /* Set variables to the value they are supposed to be when running.*/
         void setVariablesToRunningMode() {
-            mIsPaused = false;
-            mIsRunning = true;
+            mTimerIsPaused = false;
+            mTimerIsRunning = true;
             mIsStop = false;
         }
 
         /* Set variables to the value they are supposed to be when pause.*/
         void setVariablesToPausedMode() {
-            mIsPaused = true;
-            mIsRunning = false;
+            mTimerIsPaused = true;
+            mTimerIsRunning = false;
             mIsStop = false;
         }
 
         /* Set variables to the value they are supposed to be when stop.*/
         void setVariablesToStopMode() {
-            mIsPaused = false;
-            mIsRunning = false;
+            mTimerIsPaused = false;
+            mTimerIsRunning = false;
             mIsStop = true;
         }
+
+
+        /*
+        * @param resId the of the audio file.
+        * Create, setLooping true and start Media Player.
+        * */
+        private void startMediaPlayer(int resId) {
+            mMediaPlayer = MediaPlayer.create(mContext, resId);
+            mMediaPlayer.setLooping(true);
+            mMediaPlayer.start();
+        }
+
 
         /**
          * Clean up the media player by releasing its resources.
@@ -135,8 +164,8 @@ class Fryer {
         @Override
         public String toString() {
             return "Zone{" +
-                    "mIsPaused=" + mIsPaused +
-                    ", mIsRunning=" + mIsRunning +
+                    "mTimerIsPaused=" + mTimerIsPaused +
+                    ", mTimerIsRunning=" + mTimerIsRunning +
                     ", mIsStop=" + mIsStop +
                     '}';
         }

@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +31,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     private static final int NO_BUTTON_IS_SELECTED = 100;
     private static final String DEFAULT_NUM_OF_ZONES = "3";
     private static final String DEFAULT_NUM_OF_FRYERS = "4";
+    static final int NUMBER_MENU_ITEMS = 8;
 
 
     // I am hardcoding the string because if a get the values from resources the switch block show
@@ -40,7 +40,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
 
 
     // Fryers are Custom Data type objects that contain 3 Zone Data type objects inside, and each
-    // Zone object contains 3 boolean values, mIsPaused, mIsRunning, mIsStop.
+    // Zone object contains 3 boolean values, mTimerIsPaused, mTimerIsRunning, mIsStop.
     private Fryer mFryer1;
     private Fryer mFryer2;
     private Fryer mFryer3;
@@ -145,42 +145,45 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         // Set visibilities to Fryer's Layouts depending on the pref's values.
         manageLinearLayoutsVisibility();
 
+        // Save the button and all the Preference keys of the number of Menu Items specified.
+        for (int i = 1; i <= NUMBER_MENU_ITEMS; i++) {
+            // Create ids of the buttons, e.g R.id.menuItem1
+            int resId =  getResources().getIdentifier("menuItem" + i, "id",
+                    getPackageName());
+            // Save the button and all the Preference keys that belong to that Menu Item.
+            mButtonValues.add(new ButtonValue(findViewById(resId), "button_visibility" + i,
+                    "menu_item_name" + i, "menu_item_time" + i, "action_visibility" + i,
+                    "action_name" + i, "action_time" + i));
+        }
 
-        // TODO iterate id resources, and this to strings.xml
-        /*        int maxNumButtons = 8;
-        for (int i = 0; i < maxNumButtons; i++) {
-            mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem1),
-                    getString(R.string.button_visibility) + i, getString(R.string.button_time) + i,
-                    getString(R.string.button_text + i)));
-        }*/
-        mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem1),
-                "button1_visibility", "button1_time", "button1_text"));
-        mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem2),
-                "button2_visibility", "button2_time", "button2_text"));
-        mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem3),
-                "button3_visibility", "button3_time", "button3_text"));
-        mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem4),
-                "button4_visibility", "button4_time", "button4_text"));
-        mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem5),
-                "button5_visibility", "button5_time", "button5_text"));
-        mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem6),
-                "button6_visibility", "button6_time", "button6_text"));
-        mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem7),
-                "button7_visibility", "button7_time", "button7_text"));
-        mButtonValues.add(new ButtonValue((Button) findViewById(R.id.menuItem8),
-                "button8_visibility", "button8_time", "button8_text"));
-
-        // Starts all buttons in ,ButtonValues
-        for(int i =0; i < mButtonValues.size(); i++){
-            manageButtonVisibility(mButtonValues.get(i));
+        // Starts all buttons in ButtonValues
+        for(ButtonValue buttonValue : mButtonValues){
+            manageButtonVisibility(buttonValue);
+            manageAction(buttonValue);
         }
     }
 
     /*
     *
     * */
+    private void manageAction(ButtonValue buttonValue) {
+
+        // Get button' Action State, on or off (true or false) and save it.
+        buttonValue.saveActionState(mPrefs.getBoolean(buttonValue.getActionStateKey(), false));
+        if (buttonValue.getActionState()) {
+            buttonValue.saveActionName(mPrefs.getString(buttonValue.getActionNameKey(), ""));
+            buttonValue.saveActionTime(mPrefs.getInt(buttonValue.getActionTimeKey(), 10000));
+        }
+    }
+
+
+
+    /*
+    *
+    * */
     private void setListenersToTextViews(Fryer fryer){
 
+        // todo iterate custom object
         fryer.zoneA.mZoneText.setOnClickListener(this);
         fryer.zoneB.mZoneText.setOnClickListener(this);
         fryer.zoneC.mZoneText.setOnClickListener(this);
@@ -191,49 +194,47 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /*
-    * Manage all the logic, to pause, resume, stop, numberpicker_dialog to show in the TextView that was click.
+    * Manage all the logic, to pause, resume, stop, number_picker_dialog to show in the TextView that was click.
     *
-    * @ zone is the Zone object with the logic boolean variable, mIsPaused, mIsRunning and mIsStop.
+    * @ zone is the Zone object with the logic boolean variable, mTimerIsPaused, mTimerIsRunning and mIsStop.
     * @ view is the TextView that was being click and will be modified.
     * */
     private void timerLogic(Fryer.Zone zone) {
-
         // todo Improve this
+        // Get the button's index was clicked
         int index = indexButtonClicked();
 
         if (index != NO_BUTTON_IS_SELECTED) {
-
-            ButtonValue buttonValue = mButtonValues.get(index);
-            // if buttonLogic selected and mTimer not running, start mTimer when click
-            if (!zone.mIsRunning && !zone.mIsPaused) {
-                zone.mTimer.setTimeAndStart(buttonValue.getTime(), INTERVAL, zone.mZoneText);
-                zone.mSummaryText.setText(buttonValue.getText());
+             // Get the buttonValue object that contains the button just clicked and the relative
+             // variables
+             ButtonValue buttonValue = mButtonValues.get(index);
+             // Timer not running, not Paused, start mTimer when click
+             if (!zone.mTimerIsRunning && !zone.mTimerIsPaused) {
+                zone.mTimer.setTimeAndStart(buttonValue, zone);
+                zone.mSummaryText.setText(buttonValue.getMenuItemName());
                 zone.mSummaryText.setVisibility(View.VISIBLE);
 
-                buttonValue.saveSelected(false);
                 zone.setVariablesToRunningMode();
                 resetButton(buttonValue);
 
-                // If running and the user try to change the time, throw a dialog to asking
-                // "Are you sure ...."
+            // If running and the user try to change the time, throw a dialog to asking
+            // "Are you sure ...."
             } else {
                 // Throws a dialog, if confirm
                 confirmationDialogAndStartTimer(zone, buttonValue);
-                buttonValue.saveSelected(false);
                 resetButton(buttonValue);
             }
-
-            // If menuItemIsSelected is not selected, proceed
+        // If menuItemIsSelected is not selected, proceed
         } else  {
-            // If running and a not buttonLogic selected, pause when click.
-            if (zone.mIsRunning) {
+            if (zone.mTimerIsRunning) {
                 zone.mTimer.pause();
                 zone.setVariablesToPausedMode();
 
-                // if paused and not buttonLogic selected, resume when click
-            } else if (zone.mIsPaused) {
+            // if paused and not button selected, resume when click
+            } else if (zone.mTimerIsPaused) {
                 zone.mTimer.resume();
                 zone.setVariablesToRunningMode();
+                zone.releaseMediaPlayer();
 
             } else if (zone.mIsStop) {
                 zone.mZoneText.setText(zone.mDefaultTextZone);
@@ -290,7 +291,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             Button button = buttonValue.getButton();
             button.setVisibility(View.VISIBLE);
             //
-            buttonValue.saveTime(getTime(buttonValue));
+            buttonValue.saveMenuItemTime(getTime(buttonValue));
             //
             setAndSaveButtonName(buttonValue);
             button.setOnClickListener(this);
@@ -310,11 +311,11 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     * */
     private void setAndSaveButtonName(ButtonValue buttonValue) {
         // Get the current text of the button.
-        String buttonText = mPrefs.getString(buttonValue.getNameKey(), BUTTONS_DEFAULT_NAME);
+        String buttonText = mPrefs.getString(buttonValue.getMenuItemNameKey(), BUTTONS_DEFAULT_NAME);
 
         // Set the text to the Button view
         buttonValue.getButton().setText(buttonText);
-        buttonValue.saveName(buttonText);
+        buttonValue.saveMenuItemName(buttonText);
     }
 
     /*
@@ -322,7 +323,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     * */
     private int getTime(ButtonValue buttonValue) {
 
-        return mPrefs.getInt(buttonValue.getTimeKey(), 15)
+        return mPrefs.getInt(buttonValue.getMenuItemTimeKey(), 15)
               * ONE_SECOND_IN_MILLISECONDS;
     }
 
@@ -344,7 +345,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     * */
     private void resetCounterAndVariables(Fryer.Zone zone) {
 
-        if (zone.mIsRunning || zone.mIsPaused) {
+        if (zone.mTimerIsRunning || zone.mTimerIsPaused) {
             zone.mTimer.cancel();
             zone.mZoneText.setText(zone.mDefaultTextZone);
             zone.mSummaryText.setVisibility(View.GONE);
@@ -377,8 +378,8 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Yes" buttonLogic, so change the current cooking time.
                 zone.mTimer.cancel();
-                zone.mTimer.setTimeAndStart(buttonValue.getTime(), INTERVAL);
-                zone.mSummaryText.setText(buttonValue.getText());
+                zone.mTimer.setTimeAndStart(buttonValue, zone);
+                zone.mSummaryText.setText(buttonValue.getMenuItemName());
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -515,7 +516,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
     *
     *  It listens for changes in all the Preferences objects
     * */
-    // todo decide is change it for Preferece.OnChangeListener
+    // todo decide is change it for Preference.OnChangeListener
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         // If any of the SwitchPreferences are switch, check the new visibility of the button and
@@ -528,6 +529,7 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
 
         } else if (key.equals(mButtonValues.get(2).getVisibilityKey())) {
             manageButtonVisibility(mButtonValues.get(2));
+
 
         } else if (key.equals(mButtonValues.get(3).getVisibilityKey())) {
             manageButtonVisibility(mButtonValues.get(3));
@@ -544,70 +546,154 @@ public class FryerActivity extends AppCompatActivity implements View.OnClickList
         } else if (key.equals(mButtonValues.get(7).getVisibilityKey())) {
             manageButtonVisibility(mButtonValues.get(7));
 
-        // todo maybe update summary name summary here instead of in the in SettingsFragment
-        // If any Name EditTextPreferences is modified, set the new text to the appropriate button.
-        } else if (key.equals(mButtonValues.get(0).getNameKey())) {
+            // todo maybe update summary name summary here instead of in the in SettingsFragment
+            // If any Name EditTextPreferences is modified, set the new text to the appropriate button.
+        } else if (key.equals(mButtonValues.get(0).getMenuItemNameKey())) {
             setAndSaveButtonName(mButtonValues.get(0));
 
-        } else if (key.equals(mButtonValues.get(1).getNameKey())) {
+        } else if (key.equals(mButtonValues.get(1).getMenuItemNameKey())) {
             setAndSaveButtonName(mButtonValues.get(1));
+            Log.i(TAG, "same button");
+            Log.i(TAG, mButtonValues.get(1).getActionName());
 
-        } else if (key.equals(mButtonValues.get(2).getNameKey())) {
+        } else if (key.equals(mButtonValues.get(2).getMenuItemNameKey())) {
             setAndSaveButtonName(mButtonValues.get(2));
 
-        } else if (key.equals(mButtonValues.get(3).getNameKey())) {
+        } else if (key.equals(mButtonValues.get(3).getMenuItemNameKey())) {
             setAndSaveButtonName(mButtonValues.get(3));
 
-        } else if (key.equals(mButtonValues.get(4).getNameKey())) {
+        } else if (key.equals(mButtonValues.get(4).getMenuItemNameKey())) {
             setAndSaveButtonName(mButtonValues.get(4));
 
-        } else if (key.equals(mButtonValues.get(5).getNameKey())) {
+        } else if (key.equals(mButtonValues.get(5).getMenuItemNameKey())) {
             setAndSaveButtonName(mButtonValues.get(5));
 
-        } else if (key.equals(mButtonValues.get(6).getNameKey())) {
+        } else if (key.equals(mButtonValues.get(6).getMenuItemNameKey())) {
             setAndSaveButtonName(mButtonValues.get(6));
 
-        } else if (key.equals(mButtonValues.get(7).getNameKey())) {
+        } else if (key.equals(mButtonValues.get(7).getMenuItemNameKey())) {
             setAndSaveButtonName(mButtonValues.get(7));
 
 
-        // todo maybe update summary time summary here instead of in the in SettingsFragment
-        // If any Time EditTextPreferences is modified, set the new text to the appropriate button.
-        } else if (key.equals(mButtonValues.get(0).getTimeKey())) {
-            mButtonValues.get(0).saveTime(getTime(mButtonValues.get(0)));
+            // todo maybe update summary time summary here instead of in the in SettingsFragment
+            // If any Time EditTextPreferences is modified, set the new text to the appropriate button.
+        } else if (key.equals(mButtonValues.get(0).getMenuItemTimeKey())) {
+            mButtonValues.get(0).saveMenuItemTime(getTime(mButtonValues.get(0)));
 
-        } else if (key.equals(mButtonValues.get(1).getTimeKey())) {
-            mButtonValues.get(1).saveTime(getTime(mButtonValues.get(1)));
+        } else if (key.equals(mButtonValues.get(1).getMenuItemTimeKey())) {
+            mButtonValues.get(1).saveMenuItemTime(getTime(mButtonValues.get(1)));
 
-        } else if (key.equals(mButtonValues.get(2).getTimeKey())) {
-            mButtonValues.get(2).saveTime(getTime(mButtonValues.get(2)));
+        } else if (key.equals(mButtonValues.get(2).getMenuItemTimeKey())) {
+            mButtonValues.get(2).saveMenuItemTime(getTime(mButtonValues.get(2)));
 
-        } else if (key.equals(mButtonValues.get(3).getTimeKey())) {
-            mButtonValues.get(3).saveTime(getTime(mButtonValues.get(3)));
+        } else if (key.equals(mButtonValues.get(3).getMenuItemTimeKey())) {
+            mButtonValues.get(3).saveMenuItemTime(getTime(mButtonValues.get(3)));
 
-        } else if (key.equals(mButtonValues.get(4).getTimeKey())) {
-            mButtonValues.get(4).saveTime(getTime(mButtonValues.get(4)));
+        } else if (key.equals(mButtonValues.get(4).getMenuItemTimeKey())) {
+            mButtonValues.get(4).saveMenuItemTime(getTime(mButtonValues.get(4)));
 
-        } else if (key.equals(mButtonValues.get(5).getTimeKey())) {
-            mButtonValues.get(5).saveTime(getTime(mButtonValues.get(5)));
+        } else if (key.equals(mButtonValues.get(5).getMenuItemTimeKey())) {
+            mButtonValues.get(5).saveMenuItemTime(getTime(mButtonValues.get(5)));
 
-        } else if (key.equals(mButtonValues.get(6).getTimeKey())) {
-            mButtonValues.get(6).saveTime(getTime(mButtonValues.get(6)));
+        } else if (key.equals(mButtonValues.get(6).getMenuItemTimeKey())) {
+            mButtonValues.get(6).saveMenuItemTime(getTime(mButtonValues.get(6)));
 
-        }else if (key.equals(mButtonValues.get(7).getTimeKey())) {
-            mButtonValues.get(7).saveTime(getTime(mButtonValues.get(7)));
+        } else if (key.equals(mButtonValues.get(7).getMenuItemTimeKey())) {
+            mButtonValues.get(7).saveMenuItemTime(getTime(mButtonValues.get(7)));
 
 
-        // Todo if you set a timer, hide the same fryer and show it again, you would see the
-        // timer still running, very unlikely to happen, but still a bug.
+            // Todo if you set a timer, hide the same fryer and show it again, you would see the
+            // timer still running, very unlikely to happen, but still a bug.
         } else if (key.equals(getString(R.string.number_of_fryers_key))) {
             manageLinearLayoutsVisibility();
 
         } else if (key.contains(getString(R.string.number_of_zones_fryer_key))) {
             getZonesFryerAndManage(key);
+
+
+        } else if (key.equals(mButtonValues.get(0).getActionNameKey())) {
+            mButtonValues.get(0).saveActionName(mPrefs.getString(key, ""));
+
+        } else if (key.equals(mButtonValues.get(1).getActionNameKey())) {
+            mButtonValues.get(1).saveActionName(mPrefs.getString(key, ""));
+
+        } else if (key.equals(mButtonValues.get(2).getActionNameKey())) {
+            mButtonValues.get(2).saveActionName(mPrefs.getString(key, ""));
+
+        } else if (key.equals(mButtonValues.get(3).getActionNameKey())) {
+            mButtonValues.get(3).saveActionName(mPrefs.getString(key, ""));
+
+        } else if (key.equals(mButtonValues.get(4).getActionNameKey())) {
+            mButtonValues.get(4).saveActionName(mPrefs.getString(key, ""));
+
+        } else if (key.equals(mButtonValues.get(5).getActionNameKey())) {
+            mButtonValues.get(5).saveActionName(mPrefs.getString(key, ""));
+
+        } else if (key.equals(mButtonValues.get(6).getActionNameKey())) {
+            mButtonValues.get(6).saveActionName(mPrefs.getString(key, ""));
+
+        } else if (key.equals(mButtonValues.get(7).getActionNameKey())) {
+            mButtonValues.get(7).saveActionName(mPrefs.getString(key, ""));
+
+
+
+        } else if (key.equals((mButtonValues.get(0).getActionStateKey()))) {
+            mButtonValues.get(0).saveActionState(mPrefs.getBoolean(key, false));
+
+        } else if (key.equals((mButtonValues.get(1).getActionStateKey()))) {
+            mButtonValues.get(1).saveActionState(mPrefs.getBoolean(key, false));
+
+        }  else if (key.equals((mButtonValues.get(2).getActionStateKey()))) {
+            mButtonValues.get(2).saveActionState(mPrefs.getBoolean(key, false));
+
+        } else if (key.equals((mButtonValues.get(3).getActionStateKey()))) {
+            mButtonValues.get(3).saveActionState(mPrefs.getBoolean(key, false));
+
+        } else if (key.equals((mButtonValues.get(4).getActionStateKey()))) {
+            mButtonValues.get(4).saveActionState(mPrefs.getBoolean(key, false));
+
+        } else if (key.equals((mButtonValues.get(5).getActionStateKey()))) {
+            mButtonValues.get(5).saveActionState(mPrefs.getBoolean(key, false));
+
+        } else if (key.equals((mButtonValues.get(6).getActionStateKey()))) {
+            mButtonValues.get(6).saveActionState(mPrefs.getBoolean(key, false));
+
+        } else if (key.equals((mButtonValues.get(7).getActionStateKey()))) {
+            mButtonValues.get(7).saveActionState(mPrefs.getBoolean(key, false));
+
+
+        } else if (key.equals(mButtonValues.get(0).getActionTimeKey())) {
+            mButtonValues.get(0).saveActionTime(mPrefs.getInt(key, 10000));
+
+        } else if (key.equals(mButtonValues.get(1).getActionTimeKey())) {
+            mButtonValues.get(1).saveActionTime(mPrefs.getInt(key, 10000));
+
+        } else if (key.equals(mButtonValues.get(2).getActionTimeKey())) {
+            mButtonValues.get(2).saveActionTime(mPrefs.getInt(key, 10000));
+
+        } else if (key.equals(mButtonValues.get(3).getActionTimeKey())) {
+            mButtonValues.get(3).saveActionTime(mPrefs.getInt(key, 10000));
+
+        } else if (key.equals(mButtonValues.get(4).getActionTimeKey())) {
+            mButtonValues.get(4).saveActionTime(mPrefs.getInt(key, 10000));
+
+        } else if (key.equals(mButtonValues.get(5).getActionTimeKey())) {
+            mButtonValues.get(5).saveActionTime(mPrefs.getInt(key, 10000));
+
+        } else if (key.equals(mButtonValues.get(6).getActionTimeKey())) {
+            mButtonValues.get(6).saveActionTime(mPrefs.getInt(key, 10000));
+
+        } else if (key.equals(mButtonValues.get(7).getActionTimeKey())) {
+            mButtonValues.get(7).saveActionTime(mPrefs.getInt(key, 10000));
+
         }
     }
 
+
+
+    /*
+    *
+    * */
     private void getZonesFryerAndManage(String key) {
         // todo there is way to avoid these ifs, linking the values.
         if (key.equals(getString(R.string.number_of_zones_fryer1_key))) {

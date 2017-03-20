@@ -6,6 +6,7 @@ import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 /**
  * Created by yajos on 3/8/17.
@@ -98,12 +99,30 @@ public class NumberPickerPreference extends DialogPreference implements NumberPi
     * */
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-        if (mPickerMinutes == picker) {
+
+        // If the Action Time picker for minutes was changed, proceed.
+        if (getKey().contains("action") && mPickerMinutes == picker) {
+            // The user should not set a Action Timer higher than the MenuItem's time, so
+            // only if the picker' new value is lower than minutes of the Menu Item related, update
+            // mPickerMinutesValue.
+            if (newVal < getMenuItemMinutes()) {
+                mPickerMinutesValue = newVal;
+
+            //if the picker' new value is higher than minutes of the Menu Item related throw toast
+            } else {
+                Toast.makeText(getContext(),"Action Time can't be bigger than Menu Item Time",
+                        Toast.LENGTH_SHORT).show();
+            }
+        // If the Menu Item Time picker for minutes was changed, update mPickerMinutesValue.
+        } else if (mPickerMinutes == picker){
             mPickerMinutesValue = newVal;
         }
+
+        // If the Menu Item or Action Time picker for second was changed, update mPickerSecondsValue.
         if (mPickerSeconds == picker) {
             mPickerSecondsValue = newVal;
         }
+        // Store the total number of seconds in mPickerMinutesValue and mPickerSecondsValue.
         mNewValue = (mPickerMinutesValue * SECONDS_PER_MINUTE) + mPickerSecondsValue;
         // Call this method after the user changes the preference, but before the internal
         // state is set. This will call the Preference.onPreferenceChange in the SettingFragment.
@@ -147,6 +166,34 @@ public class NumberPickerPreference extends DialogPreference implements NumberPi
             //mCurrentValue = (Integer) defaultValue;
             persistInt(mCurrentValue);
         }
+    }
+
+    /*
+    * Return the minutes of the Menu Item that has to be with current picker
+    */
+    private int getMenuItemMinutes() {
+        String pickerKey = getKey();
+        String menuItemTimeKey = null;
+
+        if (pickerKey.contains("1")) {
+            menuItemTimeKey = "menu_item_time1";
+        } else if (pickerKey.contains("2")) {
+            menuItemTimeKey = "menu_item_time2";
+        } else if (pickerKey.contains("3")) {
+            menuItemTimeKey = "menu_item_time3";
+        } else if (pickerKey.contains("4")) {
+            menuItemTimeKey = "menu_item_time4";
+        } else if (pickerKey.contains("5")) {
+            menuItemTimeKey = "menu_item_time5";
+        } else if (pickerKey.contains("6")) {
+            menuItemTimeKey = "menu_item_time6";
+        } else if (pickerKey.contains("7")) {
+            menuItemTimeKey = "menu_item_time7";
+        } else if (pickerKey.contains("8")) {
+            menuItemTimeKey = "menu_item_time8";
+        }
+
+        return getSharedPreferences().getInt(menuItemTimeKey, 0) / 60;
     }
 }
 
