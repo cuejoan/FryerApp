@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/whole_screen"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="4.0"
+    android:baselineAligned="false"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:baselineAligned="true">
+
+        <LinearLayout
+            android:id="@+id/fryer1_layout"
+            style="@style/fryer_linear_layout_style">
+
+            <TextView
+                android:id="@+id/Fryer1"
+                style="@style/fryer_text_views_style"
+                android:text="@string/fryer_1" />
+
+            <TextView
+                android:id="@+id/text_fryer1_zoneA"
+                style="@style/linear_text_views_style"
+                android:text="@string/zone_a" />
+
+            <TextView
+                android:id="@+id/text_fryer1_zoneB"
+                style="@style/linear_text_views_style"
+                android:text="@string/zone_b" />
+
+            <TextView
+                android:id="@+id/text_fryer1_zoneC"
+                style="@style/linear_text_views_style"
+                android:text="@string/zone_c" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fryer2_layout"
+            style="@style/fryer_linear_layout_style">
+
+            <TextView
+                android:id="@+id/text_fryer2"
+                style="@style/fryer_text_views_style"
+                android:text="@string/fryer_2" />
+
+            <TextView
+                android:id="@+id/text_fryer2_zoneA"
+                style="@style/linear_text_views_style"
+                android:text="@string/zone_a" />
+
+            <TextView
+                android:id="@+id/text_fryer2_zoneB"
+                style="@style/linear_text_views_style"
+                android:text="@string/zone_b" />
+
+            <TextView
+                android:id="@+id/text_fryer2_zoneC"
+                style="@style/linear_text_views_style"
+                android:text="@string/zone_c" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fryer3_layout"
+            style="@style/fryer_linear_layout_style">
+
+            <TextView
+                android:id="@+id/text_fryer3"
+                style="@style/fryer_text_views_style"
+                android:text="@string/fryer_3" />
+
+            <TextView
+                android:id="@+id/text_fryer3_zoneA"
+                style="@style/linear_text_views_style"
+                android:text="@string/zone_a" />
+
+            <TextView
+                android:id="@+id/text_fryer3_zoneB"
+                style="@style/linear_text_views_style"
+                android:text="@string/zone_b" />
+
+            <TextView
+                android:id="@+id/text_fryer3_zoneC"
+                style="@style/linear_text_views_style"
+                android:text="@string/zone_c" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fryer4_layout"
+            style="@style/fryer_linear_layout_style">
+
+            <TextView
+                android:id="@+id/text_fryer4"
+                style="@style/fryer_text_views_style"
+                android:text="@string/fryer_4" />
+
+            <TextView
+                android:id="@+id/text_fryer4_zoneA"
+                style="@style/linear_text_views_style"
+                android:text="@string/zone_a"/>
+
+            <TextView
+                android:id="@+id/text_fryer4_zoneB"
+                style="@style/linear_text_views_style"
+                android:text="@string/zone_b" />
+
+            <TextView
+                android:id="@+id/text_fryer4_zoneC"
+                style="@style/linear_text_views_style"
+                android:text="@string/zone_c"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"/>
+
+    <LinearLayout
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.3"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <Button
+            android:layout_marginLeft="30dp"
+            android:id="@+id/menuItem1"
+            style="@style/buttons_style" />
+
+        <Button
+            android:id="@+id/menuItem2"
+            style="@style/buttons_style"/>
+
+        <Button
+            android:id="@+id/menuItem3"
+            style="@style/buttons_style" />
+
+        <Button
+            android:id="@+id/menuItem4"
+            style="@style/buttons_style" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.3"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <Button
+            android:layout_marginLeft="30dp"
+            android:id="@+id/menuItem5"
+            style="@style/buttons_style"/>
+
+        <Button
+            android:id="@+id/menuItem6"
+            style="@style/buttons_style"/>
+
+        <Button
+            android:id="@+id/menuItem7"
+            style="@style/buttons_style"/>
+
+        <Button
+            android:id="@+id/menuItem8"
+            style="@style/buttons_style"/>
+    </LinearLayout>
+</LinearLayout>

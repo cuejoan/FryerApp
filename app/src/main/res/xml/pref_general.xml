@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceScreen
+        android:title="Fryers">
+
+        <ListPreference
+            android:defaultValue="@string/number_of_fryers_default_value"
+            android:entries="@array/number_of_fryers_labels"
+            android:entryValues="@array/number_of_fryers_values"
+            android:key="@string/number_of_fryers_key"
+            android:title="@string/number_of_fryers_title" />
+
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:title="Menu Items">
+
+        <PreferenceScreen
+            android:title="Menu Item 1">
+
+                <SwitchPreference
+                    android:defaultValue="true"
+                    android:key="button1_visibility"
+                    android:title="Visible" />
+
+                <EditTextPreference
+                    android:dependency="button1_visibility"
+                    android:defaultValue="1"
+                    android:key="button1_text"
+                    android:title="Name"/>
+
+                <EditTextPreference
+                    android:dependency="button1_visibility"
+                    android:defaultValue="15"
+                    android:key="button1_time"
+                    android:title="Time" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:title="Menu Item 2">
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="button2_visibility"
+                android:title="Visible" />
+
+            <EditTextPreference
+                android:dependency="button2_visibility"
+                android:defaultValue="2"
+                android:key="button2_text"
+                android:title="Name" />
+
+            <EditTextPreference
+                android:dependency="button2_visibility"
+                android:defaultValue="15"
+                android:key="button2_time"
+                android:title="Time" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:title="Menu Item 3">
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="button3_visibility"
+                android:title="Visible" />
+
+            <EditTextPreference
+                android:dependency="button3_visibility"
+                android:defaultValue="3"
+                android:key="button3_text"
+                android:title="Name" />
+
+            <EditTextPreference
+                android:dependency="button3_visibility"
+                android:defaultValue="15"
+                android:key="button3_time"
+                android:title="Time" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:title="Menu Item 4">
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="button4_visibility"
+                android:title="Visible" />
+
+            <EditTextPreference
+                android:dependency="button4_visibility"
+                android:defaultValue="4"
+                android:key="button4_text"
+                android:title="Name" />
+
+            <EditTextPreference
+                android:dependency="button4_visibility"
+                android:defaultValue="15"
+                android:key="button4_time"
+                android:title="Time" />
+        </PreferenceScreen>
+
+
+
+    </PreferenceScreen>
+</PreferenceScreen>

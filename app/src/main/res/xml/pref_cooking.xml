@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="key_root"
+    >
+    <!--android:theme="@style/AppTheme.NoActionBar"-->
+
+    <!-- key needed to make function the back button-->
+    <PreferenceScreen
+        android:key="key_screen_one"
+        android:title="Fryers">
+
+        <ListPreference
+            android:defaultValue="@string/number_of_fryers_default_value"
+            android:entries="@array/number_of_fryers_labels"
+            android:entryValues="@array/number_of_fryers_values"
+            android:key="@string/number_of_fryers_key"
+            android:title="@string/number_of_fryers_title" />
+    </PreferenceScreen>
+
+    <!-- key needed to make function the back button-->
+    <PreferenceScreen
+        android:key="key_screen_two"
+        android:title="Menu Items">
+
+        <PreferenceCategory android:title="Button 1">
+
+            <EditTextPreference
+                android:defaultValue="1"
+                android:key="button1_text"
+                android:title="Name button 1" />
+
+            <EditTextPreference
+                android:defaultValue="15"
+                android:key="button1_time"
+                android:title="Type the time in minutes" />
+
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="button1_visibility"
+                android:title="Visible" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Button 2">
+
+            <EditTextPreference
+                android:defaultValue="2"
+                android:key="button2_text"
+                android:title="Name button 2" />
+
+            <EditTextPreference
+                android:defaultValue="15"
+                android:key="button2_time"
+                android:title="Type the time in minutes" />
+
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="button2_visibility"
+                android:title="Visible" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Button 3">
+
+            <EditTextPreference
+                android:defaultValue="3"
+                android:key="button3_text"
+                android:title="Name button 3" />
+
+            <EditTextPreference
+                android:defaultValue="15"
+                android:key="button3_time"
+                android:title="Type the time in minutes" />
+
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="button3_visibility"
+                android:title="Visible" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Button 4">
+
+            <EditTextPreference
+                android:defaultValue="4"
+                android:key="button4_text"
+                android:title="Name button 4" />
+
+            <EditTextPreference
+                android:defaultValue="15"
+                android:key="button4_time"
+                android:title="Type the time in minutes" />
+
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="button4_visibility"
+                android:title="Visible" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Button 5">
+
+            <EditTextPreference
+                android:defaultValue="5"
+                android:key="button5_text"
+                android:title="Name button 5" />
+
+            <EditTextPreference
+                android:defaultValue="15"
+                android:key="button5_time"
+                android:title="Type the time in minutes" />
+
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="button5_visibility"
+                android:title="Visible" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Button 6">
+
+            <EditTextPreference
+                android:defaultValue="6"
+                android:key="button6_text"
+                android:title="Name button 6" />
+
+            <EditTextPreference
+                android:defaultValue="15"
+                android:key="button6_time"
+                android:title="Type the time in minutes" />
+
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="button6_visibility"
+                android:title="Visible" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Button 7">
+
+            <EditTextPreference
+                android:defaultValue="7"
+                android:key="button7_text"
+                android:title="Name button 7" />
+
+            <EditTextPreference
+                android:defaultValue="15"
+                android:key="button7_time"
+                android:title="Type the time in minutes" />
+
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="button7_visibility"
+                android:title="Visible" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Button 8">
+
+            <EditTextPreference
+                android:defaultValue="8"
+                android:key="button8_text"
+                android:title="Name button 8" />
+
+            <EditTextPreference
+                android:defaultValue="15"
+                android:key="button8_time"
+                android:title="Type the time in minutes" />
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="button8_visibility"
+                android:title="Visible" />
+        </PreferenceCategory>
+    </PreferenceScreen>
+</PreferenceScreen>

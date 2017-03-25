@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen
+        android:key="fryers"
+        android:title="Fryers">
+
+
+        <PreferenceCategory>
+
+            <ListPreference
+                android:defaultValue="@string/number_of_fryers_default_value"
+                android:entries="@array/number_of_fryers_labels"
+                android:entryValues="@array/number_of_fryers_values"
+                android:key="@string/number_of_fryers_key"
+                android:title="@string/number_of_fryers_title" />
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="fryer1_category"
+            android:title="Fryer 1">
+
+            <ListPreference
+                android:defaultValue="@string/number_of_zones_default_value"
+                android:entries="@array/number_of_zones_labels"
+                android:entryValues="@array/number_of_zones_values"
+                android:key="@string/number_of_zones_fryer1_key"
+                android:title="@string/number_of_zones_fryer1_key" />
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="fryer2_category"
+            android:title="Fryer 2">
+
+            <ListPreference
+                android:defaultValue="@string/number_of_zones_default_value"
+                android:entries="@array/number_of_zones_labels"
+                android:entryValues="@array/number_of_zones_values"
+                android:key="@string/number_of_zones_fryer2_key"
+                android:title="@string/number_of_zones_fryer2_key" />
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="fryer3_category"
+            android:title="Fryer 3">
+
+            <ListPreference
+                android:defaultValue="@string/number_of_zones_default_value"
+                android:entries="@array/number_of_zones_labels"
+                android:entryValues="@array/number_of_zones_values"
+                android:key="@string/number_of_zones_fryer3_key"
+                android:title="@string/number_of_zones_fryer3_key" />
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="fryer4_category"
+            android:title="Fryer 4">
+
+            <ListPreference
+                android:defaultValue="@string/number_of_zones_default_value"
+                android:entries="@array/number_of_zones_labels"
+                android:entryValues="@array/number_of_zones_values"
+                android:key="@string/number_of_zones_fryer4_key"
+                android:title="@string/number_of_zones_fryer4_key" />
+        </PreferenceCategory>
+
+    </PreferenceScreen>
+    <PreferenceScreen android:title="Menu Items">
+
+        <PreferenceCategory android:title="Menu Item 1">
+            <SwitchPreference
+                android:defaultValue="@string/button_default_value"
+                android:key="button1_visibility"
+                android:title="Visible" />
+
+
+            <EditTextPreference
+                android:defaultValue="Chicken"
+                android:dependency="button1_visibility"
+                android:key="menu_item_name1"
+                android:title="@string/menu_item_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="button1_visibility"
+                android:key="menu_item_time1"
+                android:title="Time" />
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="action_visibility1"
+                android:title="@string/would_like_action"
+                android:dependency="button1_visibility" />
+
+            <EditTextPreference
+                android:defaultValue="Shake"
+                android:dependency="action_visibility1"
+                android:key="action_name1"
+                android:title="@string/action_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="action_visibility1"
+                android:key="action_time1"
+                android:title="@string/action_time" />
+
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Menu Item 2"
+            android:key="category1">
+            <SwitchPreference
+                android:defaultValue="@string/button_default_value"
+                android:key="button2_visibility"
+                android:title="Visible" />
+
+            <EditTextPreference
+                android:defaultValue="Chicken"
+                android:dependency="button2_visibility"
+                android:key="menu_item_name2"
+                android:title="@string/menu_item_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="button2_visibility"
+                android:key="menu_item_time2"
+                android:title="@string/menu_item_time" />
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="action_visibility2"
+                android:title="@string/would_like_action"
+                android:dependency="button2_visibility" />
+
+            <EditTextPreference
+                android:defaultValue="Shake"
+                android:dependency="action_visibility2"
+                android:key="action_name2"
+                android:title="@string/action_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="action_visibility2"
+                android:key="action_time2"
+                android:title="@string/action_time" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Menu Item 3">
+            <SwitchPreference
+                android:defaultValue="@string/button_default_value"
+                android:key="button3_visibility"
+                android:title="Visible" />
+
+            <EditTextPreference
+                android:defaultValue="Chicken"
+                android:dependency="button3_visibility"
+                android:key="menu_item_name3"
+                android:title="@string/menu_item_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="button3_visibility"
+                android:key="menu_item_time3"
+                android:title="@string/menu_item_time" />
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="action_visibility3"
+                android:title="@string/would_like_action"
+                android:dependency="button3_visibility" />
+
+            <EditTextPreference
+                android:defaultValue="Shake"
+                android:dependency="action_visibility3"
+                android:key="action_name3"
+                android:title="@string/action_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="action_visibility3"
+                android:key="action_time3"
+                android:title="@string/action_time" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Menu Item 4">
+            <SwitchPreference
+                android:defaultValue="@string/button_default_value"
+                android:key="button4_visibility"
+                android:title="Visible" />
+
+            <EditTextPreference
+                android:defaultValue="Chicken"
+                android:dependency="button4_visibility"
+                android:key="menu_item_name4"
+                android:title="@string/menu_item_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="button4_visibility"
+                android:key="menu_item_time4"
+                android:title="@string/menu_item_time" />
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="action_visibility4"
+                android:title="@string/would_like_action"
+                android:dependency="button4_visibility" />
+
+            <EditTextPreference
+                android:defaultValue="Shake"
+                android:dependency="action_visibility4"
+                android:key="action_name4"
+                android:title="@string/action_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="action_visibility4"
+                android:key="action_time4"
+                android:title="@string/action_time" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Menu Item 5">
+            <SwitchPreference
+                android:defaultValue="@string/button_default_value"
+                android:key="button5_visibility"
+                android:title="Visible" />
+
+            <EditTextPreference
+                android:defaultValue="Chicken"
+                android:dependency="button5_visibility"
+                android:key="menu_item_name5"
+                android:title="@string/menu_item_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="button5_visibility"
+                android:key="menu_item_time5"
+                android:title="@string/menu_item_time" />
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="action_visibility5"
+                android:title="@string/would_like_action"
+                android:dependency="button5_visibility" />
+
+            <EditTextPreference
+                android:defaultValue="Shake"
+                android:dependency="action_visibility5"
+                android:key="action_name5"
+                android:title="@string/action_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="action_visibility5"
+                android:key="action_time5"
+                android:title="@string/action_time" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Menu Item 6">
+            <SwitchPreference
+                android:defaultValue="@string/button_default_value"
+                android:key="button6_visibility"
+                android:title="Visible" />
+
+            <EditTextPreference
+                android:defaultValue="Chicken"
+                android:dependency="button6_visibility"
+                android:key="menu_item_name6"
+                android:title="@string/menu_item_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="button6_visibility"
+                android:key="menu_item_time6"
+                android:title="@string/menu_item_time" />
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="action_visibility6"
+                android:title="@string/would_like_action"
+                android:dependency="button6_visibility" />
+
+            <EditTextPreference
+                android:defaultValue="Shake"
+                android:dependency="action_visibility6"
+                android:key="action_name6"
+                android:title="@string/action_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="action_visibility6"
+                android:key="action_time6"
+                android:title="@string/action_time" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Menu Item 7">
+            <SwitchPreference
+                android:defaultValue="@string/button_default_value"
+                android:key="button7_visibility"
+                android:title="Visible" />
+
+            <EditTextPreference
+                android:defaultValue="Chicken"
+                android:dependency="button7_visibility"
+                android:key="menu_item_name7"
+                android:title="@string/menu_item_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="button7_visibility"
+                android:key="menu_item_time7"
+                android:title="@string/menu_item_time" />
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="action_visibility7"
+                android:title="@string/would_like_action"
+                android:dependency="button7_visibility" />
+
+            <EditTextPreference
+                android:defaultValue="Shake"
+                android:dependency="action_visibility7"
+                android:key="action_name7"
+                android:title="@string/action_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="action_visibility7"
+                android:key="action_time7"
+                android:title="@string/action_time" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Menu Item 8">
+            <SwitchPreference
+                android:defaultValue="@string/button_default_value"
+                android:key="button8_visibility"
+                android:title="Visible" />
+
+            <EditTextPreference
+                android:defaultValue="Chicken"
+                android:dependency="button8_visibility"
+                android:key="menu_item_name8"
+                android:title="@string/menu_item_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="button8_visibility"
+                android:key="menu_item_time8"
+                android:title="@string/menu_item_time" />
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="action_visibility8"
+                android:title="@string/would_like_action"
+                android:dependency="button8_visibility" />
+
+            <EditTextPreference
+                android:defaultValue="Shake"
+                android:dependency="action_visibility8"
+                android:key="action_name8"
+                android:title="@string/action_name" />
+
+            <com.example.android.fryerapp.NumberPickerPreference
+                android:dependency="action_visibility8"
+                android:key="action_time8"
+                android:title="@string/action_time" />
+        </PreferenceCategory>
+    </PreferenceScreen>
+</PreferenceScreen>
